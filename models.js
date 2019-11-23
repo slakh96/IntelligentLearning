@@ -152,5 +152,19 @@ const Review = mongoose.model("Review", {
   }
 });
 
+const Auth = mongoose.model("Authentication", {
+    userName: {
+        type: String,
+        required: true,
+        minlegth: 1,
+        trim: true
+    },
+    password: {
+        type: String,
+        required: true,
+        minlegth: 1,
+        trim: true
+    }
+  });
 
-module.exports = { User, Course, Post, Review }
+module.exports = { User, Course, Post, Review, Auth }
