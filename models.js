@@ -87,6 +87,70 @@ const User = mongoose.model('User', {
         type: Boolean,
         default: true
     }
-})
+});
 
-module.exports = { User }
+const Course = mongoose.model("Course", {
+  code: {
+    type: String,
+    required: true
+  },
+  link: {
+    type: String,
+    required: true
+  }
+});
+
+const Post = mongoose.model("Post", {
+  postID: {
+    type: Number,
+    required: true
+  },
+  userName: {
+    type: String,
+		required: true,
+		minlegth: 1,
+		trim: true
+  },
+  content: {
+    type: String,
+    required: true
+  },
+  time: {
+    type = Date,
+    default: Date.now
+  },
+  title: {
+    type: String,
+    required: true
+  }
+});
+
+const Review = mongoose.model("Review", {
+  reviewID: {
+    type: Number,
+    required: true
+  },
+  author: {
+    type: String,
+		required: true,
+		minlegth: 1,
+		trim: true
+  },
+  target: {
+    type: String,
+		required: true,
+		minlegth: 1,
+		trim: true
+  },
+  content: {
+    type: String,
+    trim: true
+  },
+  rating: {
+    type: Number, 
+    required: true
+  }
+});
+
+
+module.exports = { User, Course, Post, Review }
