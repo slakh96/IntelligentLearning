@@ -5,9 +5,9 @@
   "main": "tut08a.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node tut08a.js"
+    "start": "node post_api.js"
   },
-  "author": "Owen Yeh",
+  "author": "Abhi_Kapoor; Jun_Wei_Wong, Shahzil_Lakhani, Sultan_Sidhu",
   "license": "ISC",
   "dependencies": {
     "mongodb": "^3.1.10",
