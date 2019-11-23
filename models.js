@@ -116,7 +116,7 @@ const Post = mongoose.model("Post", {
     required: true
   },
   time: {
-    type = Date,
+    type: Date,
     default: Date.now
   },
   title: {
