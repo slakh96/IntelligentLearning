@@ -79,33 +79,33 @@ function addItemToDB(item, dbName){
 	});
 }
 
-//Removes an item from the specified database. Throws error if unable to connect. Returns -1 on failure.
-function removeItemFromDB(item, dbName){
-	mongoose.connect(url, (error, client) => {
+// //Removes an item from the specified database. Throws error if unable to connect. Returns -1 on failure.
+// function removeItemFromDB(item, dbName){
+// 	mongoose.connect(url, (error, client) => {
  
-		if (error) throw error;
-		const db = convertToDBObj(dbName);
-		if (db == null){
-			log("There was an invalid database name entered!");
-			return -1;
-		}
-		db.deleteOne(item, deleteErrHandler)
-		return 0;
-	});
-}
+// 		if (error) throw error;
+// 		const db = convertToDBObj(dbName);
+// 		if (db == null){
+// 			log("There was an invalid database name entered!");
+// 			return -1;
+// 		}
+// 		db.deleteOne(item, deleteErrHandler)
+// 		return 0;
+// 	});
+// }
 
-function updateItemInDB(query, newAttributes, dbName){
-	mongoose.connect(url, (error, client) => {
-		if (error) throw error;
-		const db = convertToDBObj(dbName);
-		if (db == null){
-			log("There was an invalid database name entered!");
-			return -1;
-		}
-		db.updateMany(query, newAttributes, updateErrHandler);
-		return 0;
-	});
-}
+// function updateItemInDB(query, newAttributes, dbName){
+// 	mongoose.connect(url, (error, client) => {
+// 		if (error) throw error;
+// 		const db = convertToDBObj(dbName);
+// 		if (db == null){
+// 			log("There was an invalid database name entered!");
+// 			return -1;
+// 		}
+// 		db.updateMany(query, newAttributes, updateErrHandler);
+// 		return 0;
+// 	});
+// }
 
 //Handle insert query errors
 function insertErrHandler(error, result) {
@@ -149,6 +149,7 @@ function deleteErrHandler(error, result) {
 }
 
 //Testing123
-const addObj = {postID: 50, userName: 'lakhan77', content: 'William Nylander', title: 'Coach Keefe'}
+const addObj = {postID: 1, userName: 'lakhan77', content: 'William Nylander', title: 'Coach Keefe'}
+addItemToDB(addObj, "posts");
 const courseObj = {$set: {code: "CSC325", link: "http://CSC325.com"}};
-updateItemInDB({code: "CSC324"}, courseObj, "courses");
+//updateItemInDB({code: "CSC324"}, courseObj, "courses");
