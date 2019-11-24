@@ -10,10 +10,30 @@ const mongoose = require('mongoose')
 const { User, Course, Post, Review, Auth } = require('./models')
 
 function findItemInDB(query, dbName) {
+	return new Promise((resolve, reject) => {
+		mongoose.connect(url, (error, client) => {
+			if (error) reject(error);
+			const output = convertToDBObj(dbName).find(query, findErrHandler)
+			var promise = output.exec();
+			resolve(promise);
+			// const idk = promise.then((result, err) => {
+			// 	log("Reached here");
+			// 	log(result);
+			// 	log(err);
+			// });
+		});
+	});
     mongoose.connect(url, (error, client) => {
         if (error) throw error;
         const output = convertToDBObj(dbName).find(query, findErrHandler)
-        log(output)
+		log(output);
+		var promise = output.exec();
+		return promise;
+		// const idk = promise.then((result, err) => {
+		// 	log("Reached here");
+		// 	log(result);
+		// 	log(err);
+		// });
     });
 }
 
@@ -85,4 +105,8 @@ function deleteErrHandler(error, result) {
 }
 
 const query1 = {postID: 1};
-findItemInDB(query1, 'posts')
+ findItemInDB(query1, 'posts').then((result, err) => {
+	log("Reached here//////////////////////////////////////////////////////////////////////////////////////////////////////");
+	log(result);
+	log(err);
+});
