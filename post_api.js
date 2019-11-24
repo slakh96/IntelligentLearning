@@ -24,7 +24,7 @@ mongoose.connect(url, (error, client) => {
 	//post.save(insertErrHandler)
 });
 
-
+//Converts a database name
 function convertToDBObj(dbName) {
 	if (dbName == Post.collection.collectionName){
 		return Post;
@@ -46,8 +46,35 @@ function convertToDBObj(dbName) {
 	}
 }
 
+//Adds an item to the specified database. Throws error if unable to connect. Returns -1 on failure.
 function addItemToDB(item, dbName){
-	const db = convertToDBObj(dbName);
+	mongoose.connect(url, (error, client) => {
+ 
+		if (error) throw error;
+		const db = convertToDBObj(dbName);
+		if (db == null){
+			log("There was an invalid database name entered!");
+			return -1;
+		}
+		const itemToAdd = new db(item);
+		itemToAdd.save(insertErrHandler);
+		return 0;
+	});
+}
+
+//Removes an item from the specified database. Throws error if unable to connect. Returns -1 on failure.
+function removeItemFromDB(item, dbName){
+	mongoose.connect(url, (error, client) => {
+ 
+		if (error) throw error;
+		const db = convertToDBObj(dbName);
+		if (db == null){
+			log("There was an invalid database name entered!");
+			return -1;
+		}
+		db.deleteOne(item, deleteErrHandler)
+		return 0;
+	});
 }
 
 //Handle insert query errors
@@ -90,3 +117,8 @@ function deleteErrHandler(error, result) {
 		log("Delete Success") 
 	}
 }
+
+//Testing123
+const addObj = {postID: 50, userName: 'lakhan77', content: 'William Nylander', title: 'Coach Keefe'}
+const courseObj = {code: "CSC324", link: "http://CSC324.com"};
+addItemToDB(courseObj, "courses");
