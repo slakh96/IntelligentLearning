@@ -9,6 +9,9 @@ const postObj = {postID: 1, userName: 'abcdefg', content: 'adsfasggdsgjlghjlkjgl
 // Import our mongoose connection
 const mongoose = require('mongoose')
 const { User, Course, Post, Review, Auth } = require('./models')
+
+const models = [User, Course, Post, Review, Auth];
+
 log(Post.collection.collectionName);
 log(User.collection.collectionName);
 log(Review.collection.collectionName);
@@ -24,8 +27,22 @@ mongoose.connect(url, (error, client) => {
 	//post.save(insertErrHandler)
 });
 
-//Converts a database name
+//Converts a database name; returns null if invalid database name
 function convertToDBObj(dbName) {
+	const result =  models.filter((model) => {
+		return model.collection.collectionName == dbName;
+	})
+	if (result.length == 0){
+		return null;
+	}
+	if (result.length > 1){
+		log("WHY ARE THERE MULTIPLE MODELS WITH SAME NAME??");
+	}
+	return result[0]; //Should have only one item in it.
+}
+
+//Converts a database name
+function convertToDBObj2(dbName) {
 	if (dbName == Post.collection.collectionName){
 		return Post;
 	}
