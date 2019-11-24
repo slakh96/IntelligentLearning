@@ -59,6 +59,11 @@ const User = mongoose.model('users', {
 		required: false,
 		trim: true
     },
+    resumeLink: {
+      type: String,
+      required: false,
+      trim: true
+      },
     availability: {
 		type: mongoose.Mixed,
 		required: false
@@ -70,10 +75,6 @@ const User = mongoose.model('users', {
     newPostingsForAsTutorCourses: {
         type: Boolean,
         required: false
-    },
-    newPostingsForAsTutorCourses: {
-        type: Boolean,
-        default: true
     },
     newPostingsForAsTuteeCourses: {
         type: Boolean,

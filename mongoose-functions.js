@@ -158,13 +158,21 @@ function deleteErrHandler(error, result) {
 	}
 }
 
-const addObj = {postID: 1, userName: 'lakhan77', content: 'William Nylander', title: 'Coach Keefe'}
-addItemToDB(addObj, "posts");
-const courseObj = {$set: {code: "CSC324", link: "http://CSC324.com"}};
-updateItemInDB({code: "CSC325"}, courseObj, "courses");
-const query1 = {postID: 1};
-findItemInDB(query1, 'posts').then((result, err) => {
-	log("Reached here//////////////////////////////////////////////////////////////////////////////////////////////////////");
-	log(result);
-	log(err);
-});
+// const addObj = {postID: 1, userName: 'lakhan77', content: 'William Nylander', title: 'Coach Keefe'}
+// addItemToDB(addObj, "posts");
+// const courseObj = {$set: {code: "CSC324", link: "http://CSC324.com"}};
+// updateItemInDB({code: "CSC325"}, courseObj, "courses");
+// const query1 = {postID: 1};
+// findItemInDB(query1, 'posts').then((result, err) => {
+// 	log("Reached here//////////////////////////////////////////////////////////////////////////////////////////////////////");
+// 	log(result);
+// 	log(err);
+// });
+// const UserObj = {firstName: "Jake", lastName: "Muzzin", email: "jakemuzzin@yahoo.com",
+//  highestEdu: "Undergraduate", userName: "jakeMuzzin8", phoneNumber: "1234567890",
+//  coursesTaught: "CSC309", coursesLearning: "CSC311", about: "U of T Student", 
+// experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 
+// profilePic: "jakemuzzin.jpg", newPostingsForAsTutorCourses: false
+// };
+// addItemToDB(UserObj, "users");
+module.exports = {convertToDBObj};

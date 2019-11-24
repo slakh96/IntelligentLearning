@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+        <meta name="description" content="Settings page">
+        <link rel="stylesheet" type="text/css" href="settings.css">
+        <link rel="stylesheet" type="text/css" href = "grid.css">
+        <link rel="stylesheet" type="text/css" href="header_footer.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <title>Settings</title>
+    </head>
+    <body>
+        <header>
+            <div id="headerContainer">
+                <ul>
+                    <!-- Icon -->
+                    <li><a id="icon" href="./mainpage.html">Intelligent Learning</a></li>
+                    <li>
+                        <div class="searchBar" id="headerSearchBar">
+                        
+                            <!-- <form>
+                                <input type="text" placeholder="Search" name="search">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form> -->
+                        </div>
+                    </li>
+                    <li><div id="signupButton" class="normalButton"><a href="SearchIndex.html">Search 🔍</a></div></li>
+                    <li><div class="normalButton"><a href="mainpage.html">Home</a></div></li>
+                    <li><div class="normalButton"><a href="profile_page.html">Your Profile</a></div></li>
+                    <li><div class="specialButton"><a href="index.html">Sign Out</a></div></li>    
+                </ul>
+            </div>
+        </header>
+        <div class="row">
+            <div class="col span-1-of-2"></div>
+            <div class="col span-1-of-2">
+                <h1>Settings</h1>
+                <h4>View and change your settings here</h4>
+                <div class="form-container">
+                    <form>
+                        <h5>Account Settings</h5>
+                        <div class="settings-element">
+                            <label for="firstName">First Name: </label>
+                            <input id = "firstName" type = "text" value="Jack">
+                            <!-- <button class = "btn btn-ghost" type = "save" >Save</button>-->
+                        </div>
+                        <div class="settings-element">
+                            <label for="lastName">Last Name: </label>
+                            <input id = "lastName" type = "text" value="Violence">
+                        </div>
+                        <div class="settings-element">
+                            <label for="username">Username: </label>
+                            <input id = "username" type = "text" value="user">
+                        </div>
+                        <div class="settings-element">
+                            <label for="email">Email: </label>
+                            <input id = "email" type = "text" value="violence@gmail.com">
+                        </div>
+                        <div class="settings-element">
+                            <label for="phone">Phone Number: </label>
+                            <input id = "phone" type = "tel" value="012-345-6789">
+                        </div>
+                        <div class="settings-element">
+                            <label for="password">Password: </label>
+                            <input id = "password" type = "password" value="user">
+                        </div>
+                         <div class="settings-element">
+                            <label for="eduLevel">Education Level: </label>
+                            <input id = "eduLevel" type = "text" value="Undergraduate">
+                        </div>
+                        <h5>Profile Settings</h5>
+                        <div class="settings-element">
+                            <label for="about">About: </label>
+                            <textarea rows="4" cols="55" id = "about">I'm a strong 4th year student at the University of Toronto's Computer Science department. After spending over 2 years teaching various students fundamental JavaScript concepts, I've realized that my passion is to help new students gain an interest in web development.</textarea>
+                        </div>
+                        <div class="settings-element">
+                            <label for="experience">Experience: </label>
+                            <textarea rows="4" cols="55" id = "experience">Having worked as a Teaching Assistance at UofT for over 2 years, I've gained significant experience helping students understand even the most difficult concepts. Furthermore, I've volunteered as a tutor to help various young children in underdeveloped countries learning the basics of web programming. My strong experience coupled with my passion for teaching makes me an excellent candidate to be a tutor</textarea>
+                        </div>
+                        <div class="settings-element">
+                            <label for="resume">Link to Resume: </label>
+                            <input id = "resume" type = "text" value="/JackViolenceResume.pdf">
+                        </div>
+                        <div class="settings-element">
+                            <label for="linkedin">LinkedIn Link: </label>
+                            <input id = "linkedin" type = "text" value="https://linkedin/in/legendary.programmer">
+                        </div>
+                        <div class="settings-element">
+                            <label for="availability">Availability: </label>
+                            <input id = "availability" type = "text" value="Weekday Evenings; Weekend Mornings">
+                        </div>
+                        <div class="settings-element">
+                            <label for="teaching">Courses teaching: </label>
+                            <input id = "teaching" type = "text" value="CSC309; CSC369, CSC343">
+                        </div>
+                        <div class="settings-element">
+                            <label for="beingTaught">Courses being taught: </label>
+                            <input id = "beingTaught" type = "text" value="CSC411; CSC412">
+                        </div>
+                        <div class="settings-element">
+                            <label for="pic">Profile picture link: </label>
+                            <input id = "pic" type = "text" value="images/uoft.jpg">
+                        </div>
+                        <h5>Notifications</h5>
+                        <div class="settings-element">
+                            <label for="asTutorN">Receive emails for new postings for your 'as tutor' courses: </label>
+                            <input id = "asTutorN" type = "checkbox">
+                        </div>
+                        <div class="settings-element">
+                            <label for="asTuteeN">Receive emails for new postings for your 'as tutee' courses: </label>
+                            <input id = "asTuteeN" type = "checkbox">
+                        </div>
+                        <div class="settings-element">
+                            <label for="adminN">Receive emails for admin notifications: </label>
+                            <input id = "adminN" type = "checkbox">
+                        </div>
+                        <div class="settings-element">
+                            <label for="promotionsN">Receive emails for special offers and promotions: </label>
+                            <input id = "promotionsN" type = "checkbox">
+                        </div>
+                        
+
+                        <button class = "btn btn-full" id = "save">Save</button>
+                        <button class = "btn btn-ghost" id = "cancel">Revert </button>
+                            <div class="popupWindow" id="saveConfirm">
+                                <span class="helper"></span>
+                                <div>
+                                    <div class="popupCloseButton" id="savePopupCloseButton1">X</div>
+                                    <div class="popupTitle"><h2>Save</h2></div>
+                                    <h4>Your settings were saved!</h4>
+                                </div>
+                            </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div id="footerContainer">
+                <a id="icon" href="./mainpage.html">Intelligent Learning</a>
+                <table id="footerTable">
+                        <tr>
+                            <td><div class="normalButton"><a href="mainpage.html">Home</a></div></td>
+                           <!---<td><div class="normalButton"><a href="whyus.html">About</a></div></td>--->
+                            <td><div class="normalButton"><a href="index.html">Sign Out</a></div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="normalButton"><a href="SearchIndex.html">Search</a></div></td>
+                            <td><div class="normalButton"><a href="profile_page.html">Your Profile</a></div></td>
+                        </tr>
+                </table>
+                <a id="copyRight">Intelligent Learning &copy; 2019</a>
+            </div>
+        </footer>
+    <!--<script type="module" src="settings.js"></script>-->
+    <script src="settings.js"></script>
+    <!--<script src="../IntelligentLearning/mongoose-functions.js"></script>-->
+    </body>
+    
+</html>
