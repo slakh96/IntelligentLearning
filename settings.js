@@ -24,8 +24,36 @@ function getLoggedInInfo(e){
         log("There was an error...");
         log(error);
     })
-
 }
+
+function saveLoggedInInfo(e){
+    e.preventDefault();
+    log("Reached the saveLoggedIn function");
+    const url = '/users';
+    log("URL is ", url);
+    const data = {firstName: "Morgan", lastName: "Muzzin", email: "jakemuzzin@yahoo.com",
+     highestEdu: "Undergraduate", userName: "jakeMuzzin8", phoneNumber: "1234567890",
+     coursesTaught: "CSC309", coursesLearning: "CSC311", about: "U of T Student", 
+    experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 
+    profilePic: "jakemuzzin.jpg", newPostingsForAsTutorCourses: false
+    };
+    // Create our request constructor with all the parameters we need
+    const request = new Request(url, {
+        method: 'PUT', 
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+    fetch(request)
+    .then(function(response) {
+        log("Sent!");
+        log(response);
+    }).catch((err) => {
+        log("ERROR when receiving from savefn: ", err)
+    });
+};
 
 
 
@@ -33,8 +61,8 @@ function getLoggedInInfo(e){
 //log(user1.firstName);
 const saveBtn = document.querySelector('#save');
 const cancelBtn = document.querySelector('#cancel');
-saveBtn.addEventListener('click', getLoggedInInfo);
-cancelBtn.addEventListener('click', onCancel);
+saveBtn.addEventListener('click', saveLoggedInInfo);
+cancelBtn.addEventListener('click', getLoggedInInfo);
 function onSave(e) {
     // SERVER REQUIRED, WILL BE SAVING ALL THE CHANGED PROPERTIES IN THE CORRESPONDING USER OBJECT
     e.preventDefault();

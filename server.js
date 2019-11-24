@@ -8,6 +8,7 @@ const app = express();
 
 // mongoose and mongo connection
 const { mongooseConnection } = require('./db/mongooseConnection')
+const { ObjectID } = require('mongodb')
 //const { mongoose } = require('mongoose');
 const { User, Course, Post, Review, Auth } = require('./models')
 const models = [User, Course, Post, Review, Auth];
@@ -28,7 +29,7 @@ app.get('/', (req, res) => {
 
 /*** API Routes below ************************************/
 
-// a GET route to get all students
+// a GET route to get all users
 app.get('/users', (req, res) => {
     log("Reached server app.get");
 	User.find({}).then((users) => {
@@ -37,6 +38,32 @@ app.get('/users', (req, res) => {
 	}, (error) => {
 		res.status(500).send(error) // server error
 	})
+})
+
+// a PATCH route for changing properties of a resource.
+// (alternatively, a PUT is used more often for replacing entire resources).
+app.put('/users', (req, res) => {
+    log("Reached app.patch");
+    const id = '5ddac6f93a9d60409411f3f5'; //Manually inserted ID; we'll need to dynamically change this based on who's logged in
+    const body = req.body;
+    if (!ObjectID.isValid(id)) {
+        log("Invalid ID!");
+		res.status(404).send()
+	}
+
+	// Update the student by their id.
+	User.findByIdAndUpdate(id, {$set: body}, {new: true}).then((user) => {
+		if (!user) {
+            log("Update response was NULL");
+			res.status(404).send()
+		} else {   
+			res.send(student)
+		}
+	}).catch((error) => {
+        log("There was an error when findByIdAndUpdate");
+		res.status(400).send() // bad request for changing the user.
+	})
+
 })
 
 /*************************************************/
