@@ -9,6 +9,11 @@ const postObj = {postID: 1, userName: 'abcdefg', content: 'adsfasggdsgjlghjlkjgl
 // Import our mongoose connection
 const mongoose = require('mongoose')
 const { User, Course, Post, Review, Auth } = require('./models')
+log(Post.collection.collectionName);
+log(User.collection.collectionName);
+log(Review.collection.collectionName);
+log(Course.collection.collectionName);
+log(Auth.collection.collectionName);
 
 mongoose.connect(url, (error, client) => {
  
@@ -16,8 +21,34 @@ mongoose.connect(url, (error, client) => {
 
 	const post = new Post(postObj)
    
-	post.save(insertErrHandler)
+	//post.save(insertErrHandler)
 });
+
+
+function convertToDBObj(dbName) {
+	if (dbName == Post.collection.collectionName){
+		return Post;
+	}
+	else if (dbName == User.collection.collectionName){
+		return User;
+	}
+	else if (dbName == Review.collection.collectionName){
+		return Review;
+	}
+	else if (dbName == Course.collection.collectionName){
+		return Course;
+	}
+	else if (dbName == Auth.collection.collectionName){
+		return Auth;
+	}
+	else {
+		return null; // The user entered an invalid database
+	}
+}
+
+function addItemToDB(item, dbName){
+	const db = convertToDBObj(dbName);
+}
 
 //Handle insert query errors
 function insertErrHandler(error, result) {

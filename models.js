@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const User = mongoose.model('User', {
+const User = mongoose.model('users', {
 	firstName: {
 		type: String,
 		required: true,
@@ -89,7 +89,7 @@ const User = mongoose.model('User', {
     }
 });
 
-const Course = mongoose.model("Course", {
+const Course = mongoose.model("courses", {
   code: {
     type: String,
     required: true
@@ -100,7 +100,7 @@ const Course = mongoose.model("Course", {
   }
 });
 
-const Post = mongoose.model("Post", {
+const Post = mongoose.model("posts", {
   postID: {
     type: Number,
     required: true
@@ -125,7 +125,7 @@ const Post = mongoose.model("Post", {
   }
 });
 
-const Review = mongoose.model("Review", {
+const Review = mongoose.model("reviews", {
   reviewID: {
     type: Number,
     required: true
@@ -152,7 +152,7 @@ const Review = mongoose.model("Review", {
   }
 });
 
-const Auth = mongoose.model("Authentication", {
+const Auth = mongoose.model("authentications", {
     userName: {
         type: String,
         required: true,
