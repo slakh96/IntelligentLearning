@@ -94,6 +94,19 @@ function removeItemFromDB(item, dbName){
 	});
 }
 
+function updateItemInDB(query, newAttributes, dbName){
+	mongoose.connect(url, (error, client) => {
+		if (error) throw error;
+		const db = convertToDBObj(dbName);
+		if (db == null){
+			log("There was an invalid database name entered!");
+			return -1;
+		}
+		db.updateMany(query, newAttributes, updateErrHandler);
+		return 0;
+	});
+}
+
 //Handle insert query errors
 function insertErrHandler(error, result) {
 	if (error) {
@@ -137,5 +150,5 @@ function deleteErrHandler(error, result) {
 
 //Testing123
 const addObj = {postID: 50, userName: 'lakhan77', content: 'William Nylander', title: 'Coach Keefe'}
-const courseObj = {code: "CSC324", link: "http://CSC324.com"};
-addItemToDB(courseObj, "courses");
+const courseObj = {$set: {code: "CSC325", link: "http://CSC325.com"}};
+updateItemInDB({code: "CSC324"}, courseObj, "courses");
