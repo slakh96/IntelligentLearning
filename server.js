@@ -42,7 +42,7 @@ app.get('/users', (req, res) => {
 
 // a PATCH route for changing properties of a resource.
 // (alternatively, a PUT is used more often for replacing entire resources).
-app.put('/users', (req, res) => {
+app.patch('/users', (req, res) => {
     log("Reached app.patch");
     const id = '5ddac6f93a9d60409411f3f5'; //Manually inserted ID; we'll need to dynamically change this based on who's logged in
     const body = req.body;
@@ -57,10 +57,11 @@ app.put('/users', (req, res) => {
             log("Update response was NULL");
 			res.status(404).send()
 		} else {   
-			res.send(student)
+			res.send(user)
 		}
 	}).catch((error) => {
-        log("There was an error when findByIdAndUpdate");
+		log("There was an error when findByIdAndUpdate");
+		log(error);
 		res.status(400).send() // bad request for changing the user.
 	})
 

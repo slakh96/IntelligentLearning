@@ -31,7 +31,7 @@ function saveLoggedInInfo(e){
     log("Reached the saveLoggedIn function");
     const url = '/users';
     log("URL is ", url);
-    const data = {firstName: "Morgan", lastName: "Muzzin", email: "jakemuzzin@yahoo.com",
+    const data = {firstName: "Mitch", lastName: "Marner", email: "jakemuzzin@yahoo.com",
      highestEdu: "Undergraduate", userName: "jakeMuzzin8", phoneNumber: "1234567890",
      coursesTaught: "CSC309", coursesLearning: "CSC311", about: "U of T Student", 
     experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 
@@ -39,15 +39,14 @@ function saveLoggedInInfo(e){
     };
     // Create our request constructor with all the parameters we need
     const request = new Request(url, {
-        method: 'PUT', 
+        method: 'PATCH', 
         body: JSON.stringify(data),
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
     });
-    fetch(request)
-    .then(function(response) {
+    fetch(request).then(function(response) {
         log("Sent!");
         log(response);
     }).catch((err) => {
