@@ -29,9 +29,10 @@ function getLoggedInInfo(e){
 function saveLoggedInInfo(e){
     e.preventDefault();
     log("Reached the saveLoggedIn function");
-    const url = '/users';
+    const id = '5ddac6f93a9d60409411f3f5';
+    const url = '/users/' + id;
     log("URL is ", url);
-    const data = {firstName: "Mitch", lastName: "Marner", email: "jakemuzzin@yahoo.com",
+    const data = {firstName: "John", lastName: "Tavares", email: "jakemuzzin@yahoo.com",
      highestEdu: "Undergraduate", userName: "jakeMuzzin8", phoneNumber: "1234567890",
      coursesTaught: "CSC309", coursesLearning: "CSC311", about: "U of T Student", 
     experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 

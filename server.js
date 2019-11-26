@@ -42,10 +42,12 @@ app.get('/users', (req, res) => {
 
 // a PATCH route for changing properties of a resource.
 // (alternatively, a PUT is used more often for replacing entire resources).
-app.patch('/users', (req, res) => {
+app.patch('/users/:id', (req, res) => {
     log("Reached app.patch");
-    const id = '5ddac6f93a9d60409411f3f5'; //Manually inserted ID; we'll need to dynamically change this based on who's logged in
-    const body = req.body;
+    //const id = '5ddac6f93a9d60409411f3f5'; //Manually inserted ID; we'll need to dynamically change this based on who's logged in
+	const id = req.params.id;
+	log("ID seen by server is: ", id);
+	const body = req.body;
     if (!ObjectID.isValid(id)) {
         log("Invalid ID!");
 		res.status(404).send()
