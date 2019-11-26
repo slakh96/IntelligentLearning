@@ -21,13 +21,49 @@ app.use("/", express.static(__dirname))
 
 // route for root
 app.get('/', (req, res) => {
-	console.log(__dirname + '/settings.html');
-	res.sendFile(__dirname + '/settings.html')
+	console.log(__dirname + '/mainpage/mainpage.html');
+	res.sendFile(__dirname + '/mainpage/mainpage.html')
 })
 
 /*********************************************************/
 
 /*** API Routes below ************************************/
+
+//posts
+
+app.post('/posts', (req, res) => {
+	// log(req.body)
+
+	// Create a new student using the Student mongoose model
+	const post = new Post({
+		postID: req.body.postID,
+		userName: req.body.userName,
+		content: req.body.content,
+		time: req.body.time,
+		title: req.body.title
+	})
+	log("Created new post");
+	// Save student to the database
+	post.save().then((result) => {
+		res.send(result)
+	}, (error) => {
+		log("There was an error when saving a new post...", error)
+		res.status(400).send(error) // 400 for bad request
+	})
+})
+
+// a GET route to get all posts
+app.get('/posts', (req, res) => {
+    log("Reached server posts app.get");
+	Post.find({}).then((posts) => {
+        log("Posts are", posts);
+		res.send({ posts }) // can wrap in object if want to add more properties
+	}, (error) => {
+		res.status(500).send(error) // server error
+	})
+})
+
+///Users
 
 // a GET route to get all users
 app.get('/users', (req, res) => {
