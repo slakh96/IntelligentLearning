@@ -25,6 +25,34 @@ app.get('/', (req, res) => {
 	res.sendFile(__dirname + '/mainpage/mainpage.html')
 })
 
+
+
+
+/*********************************************************/
+/***************** SESSION COOKIES ***********************/
+app.use(
+	session({
+		secret: "recipe", 
+		resave: false, 
+		saveUninitialized: false, 
+		cookie: {
+			expires: 60000, 
+			httpOnly: true
+		}
+	})
+)
+
+/***** SULTAN MADE THESE FUNCTIONS SO ERROR CHECK PLS *****/
+
+// new user 
+app.post("/users/login", (req, res) => {
+	const email = req.body.email;
+	const password = req.body.password; 
+
+	
+})
+
+
 /*********************************************************/
 
 /*** API Routes below ************************************/
