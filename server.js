@@ -21,8 +21,8 @@ app.use("/", express.static(__dirname))
 
 // route for root
 app.get('/', (req, res) => {
-	console.log(__dirname + '/mainpage/mainpage.html');
-	res.sendFile(__dirname + '/mainpage/mainpage.html')
+	console.log(__dirname );
+	res.sendFile(__dirname )
 })
 
 /*********************************************************/
@@ -43,7 +43,7 @@ app.post('/posts', (req, res) => {
 		title: req.body.title
 	})
 	log("Created new post");
-	// Save student to the database
+	// Save post to the database
 	post.save().then((result) => {
 		res.send(result)
 	}, (error) => {
@@ -75,6 +75,33 @@ app.get('/users', (req, res) => {
 		res.status(500).send(error) // server error
 	})
 })
+
+app.post('/users', (req, res) => {
+	log("Reached server app.post for users");
+	const newUser = new User({
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		email: req.body.email,
+		highestEdu: req.body.highestEdu,
+		userName: req.body.userName,
+		phoneNumber: req.body.phoneNumber,
+		coursesTaught: req.body.coursesTaught,
+		coursesLearning: req.body.coursesLearning,
+		about: req.body.about,
+		experience: req.body.experience,
+		linkedInLink: req.body.linkedInLink,
+		profilePic: req.body.profilePic,
+		newPostingsForAsTutorCourses: req.body.newPostingsForAsTutorCourses
+	});
+	// Save student to the database
+	newUser.save().then((result) => {
+		res.send(result)
+	}, (error) => {
+		log("There was an error when saving a new post...", error)
+		res.status(400).send(error) // 400 for bad request
+	})
+
+});
 
 // a PATCH route for changing properties of a resource.
 // (alternatively, a PUT is used more often for replacing entire resources).

@@ -51,7 +51,7 @@ const User = mongoose.model('users', {
 		trim: true
     },
     experience: {
-		type: mongoose.Mixed,
+		type: Array,
 		required: false
     },
     linkedInLink: {
