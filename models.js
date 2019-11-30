@@ -172,6 +172,20 @@ const CourseSchema = new mongoose.Schema({
 
 
 /** Mongoose Schema Functions for Authentication **/
+AuthSchema.pre('save', function(next){
+  const user = this;
+  if (user.isModified('password')){
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        user.password = hash; 
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+})
+
 AuthSchema.statics.findByUsernamePassword = function(username, password) {
   const Auth = this;
 
@@ -181,10 +195,16 @@ AuthSchema.statics.findByUsernamePassword = function(username, password) {
     }
 
     return new Promise((resolve, reject) => {
-    
-    })
-  })
-}
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (result){
+          resolve(user)
+        } else {
+          reject();
+        }
+      });
+    });
+  });
+};
 
 
 
