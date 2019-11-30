@@ -15,6 +15,7 @@ const models = [User, Course, Post, Review, Auth];
 
 // body-parser: middleware for parsing HTTP JSON body into a usable object
 const bodyParser = require('body-parser'); 
+const session = require('express-session');
 app.use(bodyParser.json());
 
 app.use("/", express.static(__dirname))
@@ -44,18 +45,94 @@ app.use(
 
 /***** SULTAN MADE THESE FUNCTIONS SO ERROR CHECK PLS *****/
 
-// new user 
+// login route
 app.post("/users/login", (req, res) => {
-	const email = req.body.email;
+	const username = req.body.username;
 	const password = req.body.password; 
 
-	
-})
+	Auth.findByEmailPassword(username, password).then( user => {
+		req.session.user = user._id;
+		req.session.username = user.userName;
+		res.send({
+			currentUser:user.userName
+		});
+	}).catch (error => {
+		res.status(400).send();
+	});
+});
+
+app.get("/users/logout", (req, res) => {
+	req.session.destroy(error => {
+		if (error) {
+			res.status(500).send(error);
+		} else {
+			res.send();
+		}
+	});
+});
+
+app.get("/users/check-session", (req, res) => {
+	if (req.session.user) {
+		res.send({
+			currentUser: req.session.username
+		});
+	} else {
+		res.status(401).send();
+	}
+});
 
 
 /*********************************************************/
 
 /*** API Routes below ************************************/
+
+// creating users
+/**
+ * Expects JSON in the form 
+ * {
+ * userName: username, 
+ * password: password, 
+ * firstName: name, 
+ * lastName: name, 
+ * email: email, 
+ * highestEdu: edu, 
+ * phoneNumber: number, 
+ * coursesTaught: [courses],
+ * coursesLearning: [courses], 
+ * about: about, 
+ * experience: experience, 
+ * linkedInLink: link, 
+ * resumeLink: link, 
+ * availability: av, 
+ * profilePic: pic, 
+ * newPostingsForAsTutorCourses: something, 
+ * newPostingsForAsTuteeCourses: something, 
+ * adminNotifications: notifs, 
+ * specialOffersPromotions: promos
+ * }
+ */
+app.post("/new-user", (req, res) => {
+	const auth  = new Auth({
+		userName: req.body.userName, 
+		password: req.body.password
+	})
+
+	const newUser = new User({
+		firstName: req.body.firstName, 
+		lastName: req.body.lastName, 
+		email: req.body.email, 
+		highestEdu: req.body.highestEdu, 
+		userName: req.body.userName, 
+		phoneNumber: req.body.phoneNumber, 
+		coursesTaught: req.body.coursesTaught, 
+		couresLearning: req.body.coursesLearning, 
+		about: req.body.about, 
+		experience: req.body.experience, 
+		
+	}
+});
+
+
 
 //posts
 
