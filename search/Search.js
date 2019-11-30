@@ -49,6 +49,24 @@ const user2 = {
     adminN: false,
     promotionsN: true
 }
+
+function addUser(e){
+    e.preventDefault();
+    const data = user1;
+    log("Data in addUser is ", data);
+
+    // Create our request constructor with all the parameters we need
+    const request = new Request(url, {
+        method: 'POST', 
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+    });
+}
+
+
 const searchButton = document.querySelector("#searchButton")
 searchButton.addEventListener('click', displayAllResults)
 
