@@ -111,11 +111,23 @@ app.get("/users/check-session", (req, res) => {
  * specialOffersPromotions: promos
  * }
  */
-app.post("/new-user", (req, res) => {
+app.post("/authentications", (req, res) => {
 	const auth  = new Auth({
 		userName: req.body.userName, 
 		password: req.body.password
 	});
+
+	auth.save().then(
+		result => {
+			res.send(result);
+		}, error => {
+			res.status(400).send(error);
+		}
+	);
+	
+});
+
+app.post("/users", (req, res) => {
 	const newUser = new User({
 		firstName: req.body.firstName, 
 		lastName: req.body.lastName, 
@@ -137,14 +149,6 @@ app.post("/new-user", (req, res) => {
 		specialOffersPromotions: req.body.specialOffersPromotions
 	});
 
-	auth.save().then(
-		result => {
-			res.send(result);
-		}, error => {
-			res.status(400).send(error);
-		}
-	);
-
 	newUser.save().then(
 		result => {
 			res.send(result);
@@ -152,8 +156,108 @@ app.post("/new-user", (req, res) => {
 			res.status(400).send(error);
 		}
 	);
-	
 });
+
+/**
+ * Route for getting all users, for admin purposes
+ */
+app.get("/all-users", (req, res) => {
+	User.find().then(
+		users => {
+			log();
+			res.send({
+				users
+			});
+		}, 
+		error => {
+			res.status(500).send(error);
+		}
+	);
+});
+
+/**
+ * Getting users by course taught
+ */
+app.get("/users/:course", (req, res) => {
+	const course = req.params.course; 
+ 
+
+	
+}); 
+/**
+ * Getting users by courses learning
+ */
+
+/**
+* Getting users by availability --> use e3 date types (npm install date)
+*/
+
+/**
+ * Getting user by username
+ */
+
+
+/**
+ * Getting users by experience
+ */
+
+/**
+ * General search function that uses wildcards -> cover all above cases
+ */
+
+app.get("/search/:wildcard/:query", (req, res) => {
+	//insert promise
+	const wildcard = req.params.wildcard; 
+	const query = req.params.wildcard;
+	let findQuery;
+	switch(wildcard){
+		case "userName":
+			findQuery = {
+			userName: query 
+			}
+			break;
+		case "experience":
+			findQuery = {
+				experience: query
+			}
+			break;
+		case "firstName":
+			findQuery = {
+				firstName: query
+			}
+			break;
+		case "lastName":
+			findQuery = {
+				lastName: query
+			}
+			break;
+		case "email":
+			findQuery = {
+				email: query
+			}
+			break;
+		case "availability":
+			findQuery = {
+				availability: query
+			}
+			break;
+		default:
+			res.status(400).send();
+			break;
+	}
+
+	User.find(findQuery).then((users) => {
+		if (!users){
+			res.status(404).send();
+		}
+		log(users)
+		res.send(users)
+	})
+	
+	
+
+});
+
 
 
 
