@@ -5,7 +5,7 @@
 /*-----------------------------------------------------------*/
 //import { setLoggedInProp, getLoggedIn, getLoggedInProp, getAllUsers, setLoggedIn, User } from './User.js';
 // global variables 
-
+const log = console.log;
 ///const user1 = new User();
 const user1 = {
     firstName: "Abhi",
@@ -50,7 +50,7 @@ const user2 = {
     promotionsN: true
 }
 
-function getUsers(e){
+function getAllUsers(e){
     e.preventDefault();
     const data = user1;
     log("in getUsers");
@@ -74,9 +74,32 @@ function getUsers(e){
     })
 }
 
+function getAllPosts(e){
+    e.preventDefault();
+    log("Reached the getAllPosts function");
+    const url = '/posts';
+    fetch(url).then((response) => { 
+        if (response.status === 200) {
+            // return a promise that resolves with the JSON body
+            //log(response.json());
+            log("Returning a positive result...")
+           return response.json(); 
+       } else {
+            alert('Could not get posts');
+       }                
+    }).then((json) => {
+        log("The query was successful");
+        log(json);
+    }).catch((error) => {
+        log("There was an error...");
+        log(error);
+    })
+}
+
 
 const searchButton = document.querySelector("#searchButton")
-searchButton.addEventListener('click', displayAllResults)
+//searchButton.addEventListener('click', displayAllResults)
+searchButton.addEventListener('click', getAllPosts)
 
 // This function displays all the results when the search button is clicked 
 function displayAllResults(e){
