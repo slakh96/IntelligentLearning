@@ -11,7 +11,7 @@ body {
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
     /*background-color: #1f2833;*/
-    background-image: url(./images/metal-gears-background.jpg);
+    background-image: url(../images/metal-gears-background.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
