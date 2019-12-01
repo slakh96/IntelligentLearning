@@ -1,0 +1,189 @@
+#wrapper {
+    position: relative;
+    width: 100%;
+    /* margin-top: 20px; */
+    padding: 0;
+}
+  
+#leftColumn {
+    padding-bottom: 30px;
+    /* margin-top: 100px; */
+    background-color: #1F2833;
+    color: white;
+    width:30%;
+    float:left;
+    position: absolute;
+    height: 800px;
+}
+
+#leftColumn #contactInfo {
+    float: left;
+    margin: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    color: white;
+    border-radius: 25px;
+    border: 2px solid white;
+    width: 90%;
+}
+
+#contactInfo div {
+    padding: 10px;
+}
+
+#contactInfo a {
+    margin-left: 5px;
+    color: white;
+}
+
+#mainContent {
+    width: 70%;
+    margin-left: 30%;
+    /* margin-top: 100px; */
+    position: absolute;
+    float: left;
+}
+
+/* #mainContent div{
+    width: 100%;
+    float: right;
+    background-color: #45A29E;
+} */
+
+/* Style the profile picture circle */
+#profilePic {
+	border-radius: 50%;
+	border-color: white;
+	/* position: absolute; */
+	margin-top: 10px;
+    margin-left: 90px;
+	width: 200px;
+	border: 2px solid white;
+}
+
+#personalInfo {
+    float: left;
+    margin: 10px;
+    padding: 10px;
+}
+
+.entry {
+    float: left;
+    /* display: inline-block; */
+	overflow: auto;
+    min-height: 100px;
+    width: 90%;
+    background-color:#1F2833;
+    color: white;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    margin: 10px;
+    border: 2px solid white;
+    border-radius: 25px;
+}
+
+.course {
+    display: inline-block;
+    text-align: center;
+    padding-bottom: 15px;
+    border-radius: 25px;
+    border: 2px solid white;
+    background-color:#1F2833;
+    color: white;
+    min-height: fit-content;
+    width: 200px;
+    /* position: absolute; */
+    /* float: left; */
+}
+
+.course .specialButton a{
+    color: white;
+}
+
+.course .specialButton a{
+    border: 2px solid white;
+    /* cursor: pointer; */
+    border-radius: 25px;
+}
+
+/* Popup box */
+.popupWindow{
+    background:rgba(0,0,0,.4);
+    cursor:pointer;
+    display:none;
+    height:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:10000;
+}
+.popupWindow .helper{
+    display:inline-block;
+    height:100%;
+    vertical-align:middle;
+}
+.popupWindow > div {
+    background-color: #fff;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 551px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 60%;
+    position: relative;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.popupWindow > div > p, .popupWindow > div > h4 {
+    color: black;
+}
+
+.popupWindow table, .popupWindow th, .popupWindow td{
+    color: black;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+.popupCloseButton {
+    background-color:#999;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+.popupCloseButton:hover {
+    background-color: #ccc;
+}
+.popupTrigger {
+    color:royalblue;
+    cursor: pointer;
+    font-size: 20px;
+    /* margin: 20px; */
+    display: inline-block;
+    font-weight: bold;
+}
+
+.popupTitle {
+    text-align: left;
+    color: black;
+}
+
+footer {
+    margin-top: 1000px;
+}
