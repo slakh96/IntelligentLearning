@@ -15,14 +15,15 @@ const models = [User, Course, Post, Review, Auth];
 
 // body-parser: middleware for parsing HTTP JSON body into a usable object
 const bodyParser = require('body-parser'); 
+const session = require('express-session');
 app.use(bodyParser.json());
 
 app.use("/", express.static(__dirname))
 
 // route for root
 app.get('/', (req, res) => {
-	console.log(__dirname + '/mainpage/mainpage.html');
-	res.sendFile(__dirname + '/mainpage/mainpage.html')
+	console.log(__dirname );
+	res.sendFile(__dirname )
 })
 
 
@@ -44,18 +45,117 @@ app.use(
 
 /***** SULTAN MADE THESE FUNCTIONS SO ERROR CHECK PLS *****/
 
-// new user 
+// login route
 app.post("/users/login", (req, res) => {
-	const email = req.body.email;
+	const username = req.body.username;
 	const password = req.body.password; 
 
-	
-})
+	Auth.findByEmailPassword(username, password).then( user => {
+		req.session.user = user._id;
+		req.session.username = user.userName;
+		res.send({
+			currentUser:user.userName
+		});
+	}).catch (error => {
+		res.status(400).send();
+	});
+});
+
+app.get("/users/logout", (req, res) => {
+	req.session.destroy(error => {
+		if (error) {
+			res.status(500).send(error);
+		} else {
+			res.send();
+		}
+	});
+});
+
+app.get("/users/check-session", (req, res) => {
+	if (req.session.user) {
+		res.send({
+			currentUser: req.session.username
+		});
+	} else {
+		res.status(401).send();
+	}
+});
 
 
 /*********************************************************/
 
 /*** API Routes below ************************************/
+
+// creating users
+/**
+ * Expects JSON in the form 
+ * {
+ * userName: username, 
+ * password: password, 
+ * firstName: name, 
+ * lastName: name, 
+ * email: email, 
+ * highestEdu: edu, 
+ * phoneNumber: number, 
+ * coursesTaught: [courses],
+ * coursesLearning: [courses], 
+ * about: about, 
+ * experience: experience, 
+ * linkedInLink: link, 
+ * resumeLink: link, 
+ * availability: av, 
+ * profilePic: pic, 
+ * newPostingsForAsTutorCourses: something, 
+ * newPostingsForAsTuteeCourses: something, 
+ * adminNotifications: notifs, 
+ * specialOffersPromotions: promos
+ * }
+ */
+app.post("/new-user", (req, res) => {
+	const auth  = new Auth({
+		userName: req.body.userName, 
+		password: req.body.password
+	});
+	const newUser = new User({
+		firstName: req.body.firstName, 
+		lastName: req.body.lastName, 
+		email: req.body.email, 
+		highestEdu: req.body.highestEdu, 
+		userName: req.body.userName, 
+		phoneNumber: req.body.phoneNumber, 
+		coursesTaught: req.body.coursesTaught, 
+		couresLearning: req.body.coursesLearning, 
+		about: req.body.about, 
+		experience: req.body.experience, 
+		linkedInLink: req.body.linkedInLink, 
+		resumeLink: req.body.resumeLink, 
+		availability: req.body.availability, 
+		profilePic: req.body.profilePic, 
+		newPostingsForAsTutorCourses: req.body.newPostingsForAsTutorCourses, 
+		newPostingsForAsTuteeCourses: req.body.newPostingsForAsTuteeCourses, 
+		adminNotifications: req.body.adminNotifications, 
+		specialOffersPromotions: req.body.specialOffersPromotions
+	});
+
+	auth.save().then(
+		result => {
+			res.send(result);
+		}, error => {
+			res.status(400).send(error);
+		}
+	);
+
+	newUser.save().then(
+		result => {
+			res.send(result);
+		}, error => {
+			res.status(400).send(error);
+		}
+	);
+	
+});
+
+
 
 //posts
 
@@ -71,7 +171,7 @@ app.post('/posts', (req, res) => {
 		title: req.body.title
 	})
 	log("Created new post");
-	// Save student to the database
+	// Save post to the database
 	post.save().then((result) => {
 		res.send(result)
 	}, (error) => {
@@ -103,6 +203,33 @@ app.get('/users', (req, res) => {
 		res.status(500).send(error) // server error
 	})
 })
+
+app.post('/users', (req, res) => {
+	log("Reached server app.post for users");
+	const newUser = new User({
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		email: req.body.email,
+		highestEdu: req.body.highestEdu,
+		userName: req.body.userName,
+		phoneNumber: req.body.phoneNumber,
+		coursesTaught: req.body.coursesTaught,
+		coursesLearning: req.body.coursesLearning,
+		about: req.body.about,
+		experience: req.body.experience,
+		linkedInLink: req.body.linkedInLink,
+		profilePic: req.body.profilePic,
+		newPostingsForAsTutorCourses: req.body.newPostingsForAsTutorCourses
+	});
+	// Save student to the database
+	newUser.save().then((result) => {
+		res.send(result)
+	}, (error) => {
+		log("There was an error when saving a new post...", error)
+		res.status(400).send(error) // 400 for bad request
+	})
+
+});
 
 // a PATCH route for changing properties of a resource.
 // (alternatively, a PUT is used more often for replacing entire resources).

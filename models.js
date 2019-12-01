@@ -52,7 +52,7 @@ const UserSchema = new mongoose.Schema({
 		trim: true
     },
     experience: {
-		type: mongoose.Mixed,
+		type: Array,
 		required: false
     },
     linkedInLink: {
@@ -85,7 +85,7 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    speacialOffersPromotions: {
+    specialOffersPromotions: {
         type: Boolean,
         default: true
     }
