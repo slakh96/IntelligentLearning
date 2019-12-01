@@ -50,20 +50,28 @@ const user2 = {
     promotionsN: true
 }
 
-function addUser(e){
+function getUsers(e){
     e.preventDefault();
     const data = user1;
-    log("Data in addUser is ", data);
+    log("in getUsers");
+    const url = '/users';
 
-    // Create our request constructor with all the parameters we need
-    const request = new Request(url, {
-        method: 'POST', 
-        body: JSON.stringify(data),
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-    });
+    fetch(url).then((response) => { 
+        if (response.status === 200) {
+            // return a promise that resolves with the JSON body
+            //log(response.json());
+            log("Returning a positive result...")
+           return response.json(); 
+       } else {
+            alert('Could not get posts');
+       }                
+    }).then((json) => {
+        log("The query was successful");
+        log(json);
+    }).catch((error) => {
+        log("There was an error...");
+        log(error);
+    })
 }
 
 
