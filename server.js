@@ -115,8 +115,7 @@ app.post("/new-user", (req, res) => {
 	const auth  = new Auth({
 		userName: req.body.userName, 
 		password: req.body.password
-	})
-
+	});
 	const newUser = new User({
 		firstName: req.body.firstName, 
 		lastName: req.body.lastName, 
@@ -128,8 +127,32 @@ app.post("/new-user", (req, res) => {
 		couresLearning: req.body.coursesLearning, 
 		about: req.body.about, 
 		experience: req.body.experience, 
-		
-	}
+		linkedInLink: req.body.linkedInLink, 
+		resumeLink: req.body.resumeLink, 
+		availability: req.body.availability, 
+		profilePic: req.body.profilePic, 
+		newPostingsForAsTutorCourses: req.body.newPostingsForAsTutorCourses, 
+		newPostingsForAsTuteeCourses: req.body.newPostingsForAsTuteeCourses, 
+		adminNotifications: req.body.adminNotifications, 
+		specialOffersPromotions: req.body.specialOffersPromotions
+	});
+
+	auth.save().then(
+		result => {
+			res.send(result);
+		}, error => {
+			res.status(400).send(error);
+		}
+	);
+
+	newUser.save().then(
+		result => {
+			res.send(result);
+		}, error => {
+			res.status(400).send(error);
+		}
+	);
+	
 });
 
 
