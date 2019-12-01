@@ -161,7 +161,7 @@ app.post("/users", (req, res) => {
 /**
  * Route for getting all users, for admin purposes
  */
-app.get("/all-users", (req, res) => {
+app.get("/users", (req, res) => {
 	User.find().then(
 		users => {
 			log();
@@ -180,6 +180,24 @@ app.get("/all-users", (req, res) => {
  */
 app.get("/users/:course", (req, res) => {
 	const course = req.params.course; 
+	let result = [];
+	User.find().then(
+		users => {
+			for (let i = 0; i < users.length; i++){
+				if (users[i].coursesTaught.includes(course)){
+					result.push(users[i]);
+				}
+			}
+			if (result.length > 0){
+				res.send(result);
+			} else {
+				res.status(404).send();
+			}
+		}
+	).catch(error => {
+		log(error)
+		res.status(500).send(error);
+	})
  
 
 	
@@ -187,6 +205,28 @@ app.get("/users/:course", (req, res) => {
 /**
  * Getting users by courses learning
  */
+
+app.get("/users/:course_learning", (req, res) => {
+	const learning = req.params.learning;
+	let result = [];
+	User.find().then(
+		users => {
+			for (let i = 0; i < users.length; i++){
+				if (users[i].coursesLearning.includes(learning)){
+					result.push(users[i]);
+				}
+			}
+			if (result.length > 0){
+				res.send(result);
+			} else {
+				res.status(404).send();
+			}
+		}
+	).catch(error => {
+		log(error)
+		res.status(500).send(error);
+	})
+})
 
 /**
 * Getting users by availability --> use e3 date types (npm install date)
@@ -205,7 +245,7 @@ app.get("/users/:course", (req, res) => {
  * General search function that uses wildcards -> cover all above cases
  */
 
-app.get("/search/:wildcard/:query", (req, res) => {
+app.get("/users/:wildcard/:query", (req, res) => {
 	//insert promise
 	const wildcard = req.params.wildcard; 
 	const query = req.params.wildcard;
@@ -236,12 +276,8 @@ app.get("/search/:wildcard/:query", (req, res) => {
 				email: query
 			}
 			break;
-		case "availability":
-			findQuery = {
-				availability: query
-			}
-			break;
 		default:
+			log("Bad search query. Query by username, experience, firstname, or lastname.");
 			res.status(400).send();
 			break;
 	}
