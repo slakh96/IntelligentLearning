@@ -1,3 +1,6 @@
+//import { resolve } from "dns";
+//import { rejects } from "assert";
+
 //signup.js - contains the functions to create a new user and allow them to be signed up.
 //import { getLoggedIn, setLoggedIn, User, addUser } from './User.js';
 //import { searchByProp, searchByPropList} from './util.js';
@@ -9,10 +12,27 @@ signUpBtn.addEventListener('click', addUser);
 //Pass it the values from the html side
 
 const addDBUser = (auth, user) => {
-    log (auth);
-    log(user);
+    const popUpTxt = document.querySelector('#failExplanation');
     const authUrl = "/authentications";
     const userUrl = "/users";
+    const verifyUrl = "/authentications/" + auth.userName;
+    const emailUrl = "/users/" + user.email;
+
+    const emailRequest = new Request(emailUrl, {
+        method: "get", 
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    });
+
+    const verifyRequest = new Request(verifyUrl, {
+        method: "get", 
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    });
 
     const authRequest = new Request(authUrl, {
         method: "post", 
@@ -23,8 +43,6 @@ const addDBUser = (auth, user) => {
         }
     });
 
-    log("REACHED HERE HAHA 1");
-
     const userRequest = new Request(userUrl, {
         method: "post", 
         body: JSON.stringify(user), 
@@ -33,31 +51,49 @@ const addDBUser = (auth, user) => {
             'Content-Type': 'application/json'
         }
     });
-    log("REACHED HERE HAHA 2");
-
-    fetch(authRequest).then(function (res) {
-        if (res.status == 200){
-            log("AUTH REQUEST WENT THROUGH");
-        } else {
-            log(res.status);
-            log("the auth request didnt go through");
+    fetch(emailRequest).then(user => {
+        if (user.status != 200){
+            popUpTxt.innerHTML = "User already exists!";
+            $('#saveConfirm').show();
+            return Promise.reject(user);
         }
-    }).catch(error => {
+    }).then(
+        () => {
+            fetch(verifyRequest).then(user => {
+                if (user.status != 200){
+                    popUpTxt.innerHTML = "User already exists!";
+                    $('#saveConfirm').show();
+                    return Promise.reject(user);
+                }
+            }).then(
+                () => {
+                    return fetch(authRequest).then(
+                        function(res){
+                            if (res.status == 200){
+                                log("AUTH REQUEST WENT THROUGH");
+                            } else {
+                                log(res.status);
+                            }
+                        }
+                    ).then( () => {
+                        return fetch(userRequest).then((res) => {
+                            if (res.status == 200){
+                                log("USER REQUEST WENT THROUGH");
+                            } else {
+                                log(res.status);
+                            }
+                        });
+                    }).then(() => {
+                        setTimeout(() => {
+                            location.href = "../mainpage/mainpage.html";
+                        }, 1000);
+                    });
+                }
+            );
+        }
+    ).catch(error => {
         log(error);
     });
-
-    log("REACHED HERE HAHA 3");
-
-    fetch(userRequest).then(function (res) {
-        if (res.status == 200){
-            log("USER REQUEST WENT THROUGH");
-        } else {
-            log(res.status);
-            log("the user request didnt go through");
-        }
-    }).catch(error => {
-        log(error);
-    })
 }
 
 
@@ -74,7 +110,6 @@ function addUser(e){
     const email = document.querySelector("#email").value;
     const eduLevel = document.querySelector("#eduLevel").value;
     const phoneNumber = document.querySelector("#phoneNumber").value;
-    log("REACHED HERE 1");
     if (firstName.length == 0 || lastName.length == 0 || username.length == 0 || password.length == 0 || email.length == 0 || 
             eduLevel.length == 0 || phoneNumber.length == 0 ){
                 log("Please fill in all fields to create your account");
@@ -87,13 +122,11 @@ function addUser(e){
         $('#saveConfirm').show();
         return false;
     }
-    log("REACHED HERE 2");
     if (!email.includes("@")){
         popUpTxt.innerHTML = "Invalid email; please enter a valid email";
         $('#saveConfirm').show();
         return false;
     }
-    log("REACHED HERE 3");
     const auth = {
         userName: username, 
         password: password
@@ -105,7 +138,7 @@ function addUser(e){
         userName: username, 
         email: email, 
         highestEdu: eduLevel, 
-        phoneNumber: 6471111, 
+        phoneNumber: phoneNumber, 
         coursesTaught: [], 
         coursesLearning: [], 
         about: "SOME BS HERE", 
@@ -119,21 +152,13 @@ function addUser(e){
         adminNotifications: true, 
         specialOffersPromotions: false
     }
-    log("REACHED HERE 4");
-
     addDBUser(auth, user);
-
-    log("REACHED HERE 5");
-
     
-
     if (conflictingInfo(username, email, phoneNumber)){
         popUpTxt.innerHTML = "There is already a user with this username, email or phone number. Please use another one.";
         $('#saveConfirm').show();
         return false;
     }
-    log("REACHED HERE 6");
-    log("ok");
     //location.href = "../mainpage/mainpage.html";
     return true;
     

@@ -119,15 +119,36 @@ app.post("/authentications", (req, res) => {
 
 	auth.save().then(
 		result => {
-			log("auth saved!")
 			res.send(result);
 		}, error => {
-			//log(error);
+			log(error);
 			res.status(400).send(error);
 		}
 	);
 	
 });
+
+app.get("/authentications/:name", (req, res) => {
+	const name = req.params.name;
+	Auth.find({userName:name}).then(user => {
+		if (user.length == 0){
+			res.status(200).send();
+		} else {
+			res.status(401).send(); // 800 status code for a user that already exists
+		}
+	})
+});
+
+app.get("/users/:email", (req, res) => {
+	const email = req.params.email;
+	User.find({email: email}).then(user => {
+		if (user.length > 0){
+			res.status(401).send();
+		} else {
+			res.status(200).send();
+		}
+	})
+})
 
 app.post("/users", (req, res) => {
 	const newUser = new User({
@@ -153,10 +174,9 @@ app.post("/users", (req, res) => {
 
 	newUser.save().then(
 		result => {
-			log("user saved!");
 			res.send(result);
 		}, error => {
-			//log(error);
+			log(error);
 			res.status(400).send(error);
 		}
 	);
