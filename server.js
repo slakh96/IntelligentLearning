@@ -119,8 +119,10 @@ app.post("/authentications", (req, res) => {
 
 	auth.save().then(
 		result => {
+			log("auth saved!")
 			res.send(result);
 		}, error => {
+			//log(error);
 			res.status(400).send(error);
 		}
 	);
@@ -151,9 +153,41 @@ app.post("/users", (req, res) => {
 
 	newUser.save().then(
 		result => {
+			log("user saved!");
 			res.send(result);
 		}, error => {
+			//log(error);
 			res.status(400).send(error);
+		}
+	);
+});
+
+app.delete("/authentications/:username", (req, res) => {
+	const username = req.params.username;
+	Auth.find({userName: username}).then( user => {
+		if (!user) {
+			res.status(404).send();
+		} else {
+			res.send(student);
+		}
+	}).catch(
+		error => {
+			res.status(500).send();
+		}
+	);
+});
+
+app.delete("/users/:username", (req, res) => {
+	const username = req.params.username;
+	User.find({userName: username}).then( user => {
+		if (!user) {
+			res.status(404).send();
+		} else {
+			res.send(student);
+		}
+	}).catch(
+		error => {
+			res.status(500).send();
 		}
 	);
 });
@@ -178,7 +212,7 @@ app.get("/users", (req, res) => {
 /**
  * Getting users by course taught
  */
-app.get("/users/:course", (req, res) => {
+app.get("/users/learn/:course", (req, res) => {
 	const course = req.params.course; 
 	let result = [];
 	User.find().then(
@@ -197,16 +231,13 @@ app.get("/users/:course", (req, res) => {
 	).catch(error => {
 		log(error)
 		res.status(500).send(error);
-	})
- 
-
-	
+	});
 }); 
 /**
  * Getting users by courses learning
  */
 
-app.get("/users/:course_learning", (req, res) => {
+app.get("/users/teach/:course_learning", (req, res) => {
 	const learning = req.params.learning;
 	let result = [];
 	User.find().then(
@@ -228,25 +259,8 @@ app.get("/users/:course_learning", (req, res) => {
 	})
 })
 
-/**
-* Getting users by availability --> use e3 date types (npm install date)
-*/
-
-/**
- * Getting user by username
- */
-
-
-/**
- * Getting users by experience
- */
-
-/**
- * General search function that uses wildcards -> cover all above cases
- */
 
 app.get("/users/:wildcard/:query", (req, res) => {
-	//insert promise
 	const wildcard = req.params.wildcard; 
 	const query = req.params.wildcard;
 	let findQuery;
@@ -293,8 +307,6 @@ app.get("/users/:wildcard/:query", (req, res) => {
 	
 
 });
-
-
 
 
 //posts
