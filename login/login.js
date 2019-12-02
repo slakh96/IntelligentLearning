@@ -31,6 +31,7 @@ function onLogin(e) {
         res => {
             if (res.status != 200){
                 $('#saveConfirm').show();
+                log("Rejecting promise in login js");
                 return Promise.reject(res);
             }
         }
@@ -42,6 +43,7 @@ function onLogin(e) {
         }
     ).catch(
         error => {
+            log("Error handling block in login js");
             log(error);
         }
     );

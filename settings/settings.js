@@ -3,6 +3,7 @@ const log = console.log;
 log('Loaded front-end javascript.');
 function getLoggedInInfo(e){
     e.preventDefault();
+    let data;
     log("Reached the getLoggedIn function");
     let url = '/users/check-session';
     const defaultId = '5de2fe71ae2dcd0f24b911e7';
@@ -11,10 +12,7 @@ function getLoggedInInfo(e){
         if (response.status == 200){
         log(response);
         log(response.json());
-        }
-        else{
-            log("No user is logged in");
-            const data = {firstName: "Fredrick", lastName: "Andersen", email: "fandersen@yahoo.com",
+        data = {firstName: "Mitch", lastName: "Marner", email: "fandersen@yahoo.com",
             highestEdu: "Undergraduate", userName: "freddyA", phoneNumber: "1234567890",
             coursesTaught: ["CSC309"], coursesLearning: ["CSC302"], about: "U of T Student", 
             experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 
@@ -22,6 +20,22 @@ function getLoggedInInfo(e){
             availability: "Monday mornings; Wednesday evenings", newPostingsForAsTuteeCourses: true,
             adminNotifications: true, specialOffersPromotions: false
             };
+        }
+        else{
+            return Promise.reject("No user is logged in");
+        }
+    }).catch((error) =>{
+        log("There was an error, ", error);
+        data = {firstName: "Fredrick", lastName: "Andersen", email: "fandersen@yahoo.com",
+            highestEdu: "Undergraduate", userName: "freddyA", phoneNumber: "1234567890",
+            coursesTaught: ["CSC309"], coursesLearning: ["CSC302"], about: "U of T Student", 
+            experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 
+            profilePic: "jakemuzzin.jpg", newPostingsForAsTutorCourses: false, resumeLink: '/jamesReimer.pdf', 
+            availability: "Monday mornings; Wednesday evenings", newPostingsForAsTuteeCourses: true,
+            adminNotifications: true, specialOffersPromotions: false
+            };
+    }).finally((result) => {
+            log("Result in finally is: ", result);
             document.getElementById('firstName').value = data.firstName;
             document.getElementById('lastName').value = data.lastName;
             document.getElementById('username').value = data.userName;
@@ -40,10 +54,7 @@ function getLoggedInInfo(e){
             document.getElementById('asTuteeN').checked = data.newPostingsForAsTuteeCourses;
             document.getElementById('adminN').checked = data.adminNotifications;
             document.getElementById('promotionsN').checked = data.specialOffersPromotions;
-        }
-    }).catch((error) =>{
-        log("There was an error, ", error);
-    });
+    })
 }
 
 function saveLoggedInInfo(e){
