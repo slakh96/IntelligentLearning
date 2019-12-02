@@ -352,6 +352,30 @@ app.get('/posts', (req, res) => {
 	})
 })
 
+/// a DELETE route to remove a post by its id.
+app.delete('/posts/:id', (req, res) => {
+	const id = req.params.id;
+
+	// Validate id
+	if (!ObjectID.isValid(id)) {
+		log("The id to delete the post was invalid!");
+		res.status(404).send();
+	}
+
+	// Delete a post by its id
+	Post.findByIdAndRemove(id).then((post) => {
+		if (!post) {
+			log("There was no student found with that id...")
+			res.status(404).send();
+		} else {   
+			res.send(post);
+		}
+	}).catch((error) => {
+		log("There was an error when deleting a post: ", error);
+		res.status(500).send(); // server error, could not delete.
+	})
+})
+
 ///Users
 
 // a GET route to get all users
