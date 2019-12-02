@@ -16,6 +16,15 @@ const addDBUser = (auth, user) => {
     const authUrl = "/authentications";
     const userUrl = "/users";
     const verifyUrl = "/authentications/" + auth.userName;
+    const emailUrl = "/users/" + user.email;
+
+    const emailRequest = new Request(emailUrl, {
+        method: "get", 
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    });
 
     const verifyRequest = new Request(verifyUrl, {
         method: "get", 
@@ -42,8 +51,7 @@ const addDBUser = (auth, user) => {
             'Content-Type': 'application/json'
         }
     });
-
-    fetch(verifyRequest).then(user => {
+    fetch(emailRequest).then(user => {
         if (user.status != 200){
             popUpTxt.innerHTML = "User already exists!";
             $('#saveConfirm').show();
@@ -51,34 +59,41 @@ const addDBUser = (auth, user) => {
         }
     }).then(
         () => {
-            return fetch(authRequest).then(
-                function(res){
-                    if (res.status == 200){
-                        log("AUTH REQUEST WENT THROUGH");
-                    } else {
-                        log(res.status);
-                    }
+            fetch(verifyRequest).then(user => {
+                if (user.status != 200){
+                    popUpTxt.innerHTML = "User already exists!";
+                    $('#saveConfirm').show();
+                    return Promise.reject(user);
                 }
-            ).then( () => {
-                return fetch(userRequest).then((res) => {
-                    if (res.status == 200){
-                        log("USER REQUEST WENT THROUGH");
-                    } else {
-                        log(res.status);
-                    }
-                });
-            }).then(() => {
-                setTimeout(() => {
-                    location.href = "../mainpage/mainpage.html";
-                }, 1000);
-            }).catch(error => {
-                log("Error!");
-                log(error);
-            });
+            }).then(
+                () => {
+                    return fetch(authRequest).then(
+                        function(res){
+                            if (res.status == 200){
+                                log("AUTH REQUEST WENT THROUGH");
+                            } else {
+                                log(res.status);
+                            }
+                        }
+                    ).then( () => {
+                        return fetch(userRequest).then((res) => {
+                            if (res.status == 200){
+                                log("USER REQUEST WENT THROUGH");
+                            } else {
+                                log(res.status);
+                            }
+                        });
+                    }).then(() => {
+                        setTimeout(() => {
+                            location.href = "../mainpage/mainpage.html";
+                        }, 1000);
+                    });
+                }
+            );
         }
     ).catch(error => {
         log(error);
-    })
+    });
 }
 
 
