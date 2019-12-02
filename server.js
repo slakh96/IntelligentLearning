@@ -128,6 +128,23 @@ app.post("/authentications", (req, res) => {
 	
 });
 
+app.post("/authentications/login", (req, res) => {
+	const auth = new Auth({
+		userName: req.body.userName, 
+		password: req.body.password
+	});
+	
+	Auth.findByUsernamePassword(auth.userName, auth.password).then(
+		user => {
+			req.session.user = user._id;
+			req.session.username = user.userName;
+			res.send({currentUser: req.session.userName});
+		}
+	).catch(error => {
+		res.status(400).send();
+	})
+})
+
 app.get("/authentications/:name", (req, res) => {
 	const name = req.params.name;
 	Auth.find({userName:name}).then(user => {

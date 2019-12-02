@@ -9,55 +9,71 @@ function onLogin(e) {
     e.preventDefault();
     const username = document.querySelector("#usernameText").value;
     const password = document.querySelector("#passwordText").value;
-    // The authentication process that follows is hardcoded
-    // will need server calls to function fully 
-    if (username == "user"){
-        if (password == "user"){
-            log("Logged in as standard user!");
-            location.href = "./mainpage.html";
-        }
-        else {
-            log("incorrect username/password, please try again.");
-            $('#saveConfirm').show();
-        }
+
+    log("about to send to Authentication database")
+    const url = '/authentications/login' 
+
+    const auth = {
+        userName: username, 
+        password: password
     }
-    else if (username == "admin"){
-        if (password == "admin"){
-            log("Logged in as admin user!");
-            location.href = "./mainpageAdmin.html";
-        }
-        else {
-            log("incorrect username/password, please try again.");
-            $('#saveConfirm').show();
-        }
-    } else {
-        log("about to send to Authentication database")
-        const url = '/authentications' 
 
-        fetch(url).then((response) => {
-            if(response.status === 200){
-                // return a promise that resolves with the JSON body 
-                log("received from the Authentication database")
-                log(response.json())
+    const request = new Request(url, {
+        method:"post", 
+        body: JSON.stringify(auth), 
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    });
 
-                // Now let's check if the password entered was correct 
-                if(password === response.password){
-                    log("ACCESS GRANTED")
-                }
-                else {
-                    log("ACCESS DENIED")
-                }
-            } else {
-                alert('Could not get from the Authentication database')
+    fetch(request).then(
+        res => {
+            if (res.status != 200){
+                $('#saveConfirm').show();
+                return Promise.reject(res);
             }
-        }).then((json) => {
-            log("the query was successful")
-            log(json)
-        }).catch((error) => {
-            log("There was an error...")
-            log(error)
-        })
-    }
+        }
+    ).then(
+        () => {
+            setTimeout(() => {
+                location.href = "../mainpage/mainpage.html"
+            }, 1000);
+        }
+    ).catch(
+        error => {
+            log(error);
+        }
+    );
+
+    $('#savePopupCloseButton1').click(function(){
+        $('#saveConfirm').hide();
+    });
+
+    // fetch(url).then((response) => {
+    //     if(response.status === 200){
+    //         // return a promise that resolves with the JSON body 
+    //         log("received from the Authentication database")
+    //         log(response.json())
+
+    //         // Now let's check if the password entered was correct 
+    //         if(password === response.password){
+    //             log("ACCESS GRANTED")
+    //         }
+    //         else {
+    //             log("ACCESS DENIED")
+    //         }
+    //     } else {
+    //         alert('Could not get from the Authentication database')
+    //     }
+    // }).then((json) => {
+    //     log("the query was successful")
+    //     log(json)
+    // }).catch((error) => {
+    //     log("There was an error...")
+    //     log(error)
+    // })
+    //}
     
 
     /*

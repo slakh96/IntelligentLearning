@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
+const log = console.log;
 
 const UserSchema = new mongoose.Schema({
   firstName: {
@@ -188,14 +189,13 @@ AuthSchema.pre('save', function(next){
 
 AuthSchema.statics.findByUsernamePassword = function(username, password) {
   const Auth = this;
-
-  return Auth.findOne({username: username}).then((user) => {
+  return Auth.findOne({userName: username}).then((user) => {
     if (!user) {
       return Promise.reject();
     }
-
     return new Promise((resolve, reject) => {
       bcrypt.compare(password, user.password, (err, result) => {
+        log(result);
         if (result){
           resolve(user)
         } else {
