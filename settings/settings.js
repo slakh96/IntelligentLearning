@@ -43,66 +43,7 @@ function getLoggedInInfo(e){
         }
     }).catch((error) =>{
         log("There was an error, ", error);
-
     });
-    // fetch(url).then((response) => { 
-    //     if (response.status === 200) {
-    //         // return a promise that resolves with the JSON body
-    //         //log(response.json());
-    //         log("Returning a positive result...")
-    //        return response.json(); 
-    //    } else {
-    //         return Promise.reject("ERROR NO LOGGED IN USER");
-    //         //alert('Could not get loggedIn');
-    //    }
-    // }).then((response) => {
-    //     log("There was a loggedIn user");
-    //     log(response);
-    //     log(response.json());
-    //     return response;
-
-    // }).catch((error) => {
-    //     log("There was no logged in user", error);
-    //     return new Promise(function(resolve, reject) {
-    //         const defaultId = '5de2fe71ae2dcd0f24b911e7';
-    //         const url = '/users/' + defaultId;
-    //         resolve(url);
-    //       });
-    // }).then((url) => {
-    //     return new Promise(function(resolve, reject) {
-    //         const res = fetch(url);
-    //         resolve(res);
-    //       });
-    // }
-    //     //return response;
-    // ).then((result) => {
-    //     log("Reached result function");
-    //     log(result);
-    //     log(result.json());
-    // });
-
-    // .then((json) => { //Now we have the person who is logged in
-    //     log("The query was successful");
-    //     log(json);
-    //     const defaultId = '5de2fe71ae2dcd0f24b911e7';
-    //         url = '/users/' + defaultId;
-    //         response = fetch(url);
-    //         return response;
-    //         //return response;
-    // }).then((response) => {
-    //     if (response.status === 200) {
-    //         log("Returning user at id");
-    //         log(response);
-    //         log(response.json());
-    //         return response.json();
-    //     }
-    //     else{
-    //         return null;
-    //     }
-    // }).catch((error) => {
-    //     log("There was an error...");
-    //     log(error);
-    // })
 }
 
 function saveLoggedInInfo(e){
@@ -116,7 +57,7 @@ function saveLoggedInInfo(e){
             email: document.getElementById('email').value,
             highestEdu: document.getElementById('eduLevel').value, 
             userName: document.getElementById('username').value, 
-            phoneNumber: document.getElementById('phone').value,
+            phoneNumber: parseInt(document.getElementById('phone').value),
             coursesTaught: document.getElementById('teaching').value.split(';'), 
             coursesLearning: document.getElementById('beingTaught').value.split(';'), 
             about: document.getElementById('about').value, 

@@ -1,0 +1,17 @@
+/*CSS page for a few admin-specific styles*/
+
+.postOps{
+    float: right;
+    padding: 5px 10px;
+    background-color: #0B0C10;
+    border-radius: 50%;
+    transition: all 0.5s;
+    cursor: pointer;
+    color: #66FCF1;
+}
+
+.postOps:hover{
+    background-color: #66FCF1;
+    color: black;
+    transition: all 0.5s;
+}

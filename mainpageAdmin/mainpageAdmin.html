@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="mainpage.css">
+        <link rel="stylesheet" href="mainpageAdmin.css">
+        <link rel="stylesheet" type="text/css" href="header_footer.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <title>Intelligent Learning</title>
+    </head>
+    <body>
+        <div id="header">
+            <div id="buttonContainer">
+                <!--<div id="icon">I</div>-->
+                <ul>
+                    <li><a id="icon" href="./mainpage.html">Intelligent Learning</a></li>
+                    <li><div><a href="./settings.html">Settings</a></div></li>
+                    <!---<li><div><a href="./accounts.html">About</a></div></li>--->
+                    <li><div><a href="helpIndex.html">Help</a></div></li>
+                    <li><div id="signupButton"><a href="SearchIndex.html">Search 🔍</a></div></li> <!--href="./signup.html"-->
+                    <li><div id="loginButton"><a href="index.html">Sign out</a></div></li>
+                </ul>
+            </div>
+        </div>
+        <div id="bodyContainer">
+            <div id="bodyMainPage">
+                <div id="postCreator">
+                    <p>Something on your mind?</p>
+                    <label for="postCreatorTitle">Title:</label>
+                    <input placeholder="Enter a title containing the related course code" 
+                    id ="postCreatorTitle" name="titleCreation"><br>
+                    <label for="postCreatorInput">Details:</label>
+                    <textarea placeholder="Your description here..." rows="5" cols="60" 
+                    id="postCreatorInput" name="postCreation"></textarea><br>
+                    <button id="postCreatorBtn">Create Post</button>
+                </div>
+                <div id="postsContainer">
+                    <div class="post">
+                        <div class="username">
+                            <a href="./profile_page.html">[CSC369]Looking for tutoring in File Systems</a>
+                        </div>
+                        <div class="timePosted">
+                            <a class="postOps userOps">Remove User</a>
+                            <a>10:15 am</a>
+                            <p>Shahzil Lakhani</p>
+                            <a class="postOps postRemove">X</a>
+                        </div>
+                        <br>
+                        <div class="postText">
+                            <a>Looking for someone to help me with file <br>
+                                systems in the next week. Email if interested.<br>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="username">
+                            <a href="./profile_page.html">[CSC343] Help with Subqueries</a>
+                        </div>
+                        <div class="timePosted">
+                            <a class="postOps userOps">Remove User</a>
+                            <a>10:09 am</a>
+                            <p>Jun Wei Wong</p>
+                            <a class="postOps postRemove">X</a>
+                        </div>
+                        <br>
+                        <div class="postText">
+                            <a>Would like some help understanding how to <br> make subqueries in SQL. Email if you're available.</a>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="username">
+                            <a href="./profile_page.html">[CSC411] NEW tutor for CSC411</a>
+                        </div>
+                        <div class="timePosted">
+                                <a class="postOps userOps">Remove User</a>
+                                <a>10:08 am</a>
+                                <p>SYSTEM </p>
+                                <a class="postOps postRemove">X</a>
+                            </div>
+                        <br>
+                        <div class="postText">
+                            <a>"User auditt2019 is now available to teach CSC411. Availability: Weekday afternoons."</a>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="username">
+                            <a href="./profile_page.html">[CSC411] Extra resources</a>
+                        </div>
+                        <div class="timePosted">
+                                <a class="postOps userOps">Remove User</a>
+                                <a>10:01 am</a>
+                                <p>Meg Falconer</p>
+                                <a class="postOps postRemove">X</a>
+                            </div>
+                        <br>
+                        <div class="postText">
+                            <a>I just posted FREE CSC411 notes on my website: megfalconer.com. </a>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="username">
+                            <a href="./profile_page.html">[CSC369] Need help with file systems</a>
+                        </div>
+                        <div class="timePosted">
+                                <a class="postOps userOps">Remove User</a>
+                                <a>9:45 am</a>
+                                <p>Travis Dermott</p>
+
+                                <a class="postOps postRemove">X</a>
+                            </div>
+                        <br>
+                        <div class="postText">
+                            <a>Need help understanding file systems since I just failed the a1 lol. <br>
+                                Please contact me at 123456781 if interested.</a>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="username">
+                            <a href="./profile_page.html">[CSC412] NEW Tutor for CSC412</a>
+                        </div>
+                        <div class="timePosted">
+                                <a class="postOps userOps">Remove User</a>
+                                <a>6:15 am</a>
+                                <p>SYSTEM</p>
+                                <a class="postOps postRemove">X</a>
+                            </div>
+                        <br>
+                        <div class="postText">
+                            <a>User leafsfan96 is now available to tutor CSC412. <br>
+                                Availability: 7am daily.</a>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="username">
+                            <a href="./profile_page.html">[CSC309]Help with React</a>
+                        </div>
+                        
+                        <div class="timePosted">
+                                <a class="postOps userOps">Remove User</a>
+                                <a>Yesterday, 11:01 pm</a>
+                                <p>Tyson Barrie</p>
+                                <a class="postOps postRemove">X</a>
+                            </div>
+                        <br>
+                        <div class="postText">
+                            <a>Don't know anything about React. Would appreciate some tutoring.</a>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <div class="username">
+                            <a href="./profile_page.html">[CSC343]</a>
+                        </div>
+                        <div class="timePosted">
+                                <a class="postOps userOps">Remove User</a>
+                                <a>Yesterday, 10:15 pm</a>
+                                <p>Fredrick Andersen</p>
+                                <a class="postOps postRemove">X</a>
+                            </div>
+                        <br>
+                        <div class="postText">
+                            <a>Looking for help in using SQL in Java files. Contact me at fandersen@gmail.com <br>
+                            if you're interested</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="profileInfo">
+                <a href="./profile_page.html"><img src="./images/profilePic.png"></a>
+                <div id="profileName">
+                    <a href="./profile_page.html">Jack Violence</a>
+                </div>
+                <div id="taughtSubjs">
+                    <a>Subjects taught: <br></a>
+                    <a>CSC309, CSC369, CSC343</a>
+                </div>
+                <div id="learningSubjs">
+                    <a>Subjects being learned <br></a>
+                    <a>CSC411, CSC412</a>
+                </div>
+                <div id="ratingTutor">
+                    <a>Ratings <br></a>
+                    <a>⭐⭐⭐⭐</a>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div id="footerContainer">
+                <a id="icon" href="./mainpage.html">Intelligent Learning</a>
+                <table id="footerTable">
+                        <tr>
+                            <td><div class="normalButton"><a href="mainpageAdmin.html">Home</a></div></td>
+                            <!--<td><div class="normalButton"><a href="whyus.html">About</a></div></td>-->
+                            <td><div class="normalButton"><a href="index.html">Sign Out</a></div></td>
+                        </tr>
+                        <tr>
+                            <td><div class="normalButton"><a href="SearchIndex.html">Search</a></div></td>
+                            <td><div class="normalButton"><a href="profile_page.html">Your Profile</a></div></td>
+                        </tr>
+                </table>
+                <a id="copyRight">Intelligent Learning &copy; 2019</a>
+            </div>
+        </footer>
+        <script src="./mainpageAdmin.js"></script>
+    </body>
+</html>

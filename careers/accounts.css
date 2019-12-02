@@ -1,0 +1,111 @@
+*{
+    margin:0px;
+    padding:0px;
+    font-family:'Avenir Next';
+}
+a{
+    color: inherit;
+    text-decoration: none;
+}
+#header {
+    height:100px;
+    width:100%;
+    position: fixed;
+    background-color: #0B0C10;
+    margin-bottom: 80px;;
+    position: fixed;
+}
+
+#icon{
+    color: #66FCF1;
+    font-size: 25px;
+    padding-right: 20px;
+    font-family:'Andale Mono';
+}
+
+#buttonContainer{
+    padding:30px;
+    margin-left:10%;
+    margin-right:0%;
+}
+
+#buttonContainer ul li{
+    display: inline;
+} 
+
+#buttonContainer div{
+    display: inline-block;
+    width: 10%;
+    text-align: center;
+    margin:5px;
+}
+
+#buttonContainer li div a{
+    padding:10px;
+    color: #66FCF1;
+    font-size: 14px;
+    transition: all 0.5s;
+}
+
+#buttonContainer li div a:hover{
+    transition: all 0.5s;
+    border-bottom: 2px solid #66FCF1;
+    cursor: pointer;
+}
+
+#signupButton a:hover, #loginButton a:hover{
+    border: 2px solid #66FCF1;
+    cursor: pointer;
+    border-radius: 10%;
+}
+
+/*
+Accounts CSS
+*/
+
+#accountsContainer{
+    width: 100%;
+    background-color: #0B0C10;
+}
+
+#accounts{
+    background-color: wheat;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-top: 100px;
+    padding-bottom: 80px;
+}
+
+#accounts div{
+    padding: 20px;
+}
+
+.descImage img{
+    width: 50%;
+    border: 5px solid black;
+}
+
+#boundless{
+    color: #0B0C10;
+    font-family: "Andale Mono";
+    font-size: 30px;
+}
+
+.signup a{
+    background-color: #0B0C10;
+    color: #66FCF1;
+    padding: 10px;
+    border-radius: 5%;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.signup a:hover{
+    background-color: #66FCF1;
+    color: #0B0C10;
+    transition: all 0.5s;
+}
+ 
+h1{
+    font-family: "Andale Mono";
+}
