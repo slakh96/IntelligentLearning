@@ -32,7 +32,16 @@ body {
 }
 
 body footer {
-    margin-top: 1400px;
+    margin-top: 1800px;
+    text-align: left;
+}
+
+body footer #footerTable {
+    float: none;
+}
+
+body footer #icon {
+    margin-left: 155PX;
 }
 
 .settings-element {
@@ -136,14 +145,14 @@ label {
 
 /* Body stuff for the new signup styles */
 #settingsContainer{
-    height: 1300px;
+    height: 1500px;
     padding-top: 100px;
     margin-bottom: 100px;
     background-color: #0B0C10;
 }
 
 #settingsBody{
-    height: 1300px;
+    height: 1500px;
     margin-left: 20%;
     margin-right: 20%;
     margin-bottom: 100px;
