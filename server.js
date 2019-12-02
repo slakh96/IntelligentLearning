@@ -77,6 +77,7 @@ app.get("/users/check-session", (req, res) => {
 			currentUser: req.session.username
 		});
 	} else {
+		log("There is no one currently logged in..");
 		res.status(401).send();
 	}
 });
@@ -140,7 +141,8 @@ app.post("/authentications/login", (req, res) => {
 			req.session.username = user.userName;
 			res.send({currentUser: req.session.userName});
 		}
-	).catch(error => {
+	).catch((error) => {
+		log("There was an error in authentications login function");
 		res.status(400).send();
 	})
 })
@@ -415,6 +417,32 @@ app.get('/users', (req, res) => {
 	}, (error) => {
 		res.status(500).send(error) // server error
 	})
+})
+
+app.get('/users/:id', (req, res) => {
+	log("Getting user by id");
+	const id = req.params.id;
+
+	// Good practise: Validate id immediately.
+	if (!ObjectID.isValid(id)) {
+		log("There was invalid id when getting a user by ID");
+		res.status(404).send()  // if invalid id, definitely can't find resource, 404.
+	}
+
+	User.findById(id).then((user) => {
+		if (!user){
+			log("Couldn't find the user with the specified id");
+			res.status(404).send()  // could not find this user
+		}
+		else {
+			log("User is: ", user);
+			res.status.send(user);
+		}
+	}).catch((error) => {
+		log("There was an error when sending the user: ", error);
+		res.status(500).send();  // server error
+	})
+
 })
 
 app.post('/users', (req, res) => {
