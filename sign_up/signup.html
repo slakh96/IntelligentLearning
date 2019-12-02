@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="signup.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <title>Intelligent Learning</title>
+    </head>
+    <body>
+        <div id="header">
+            <div id="buttonContainer">
+                <ul>
+                    <li><a id="icon" href="./index.html">Intelligent Learning</a></li>
+                    <li><div><a href="./whyus.html">Why us?</a></div></li>
+                    <li><div><a href="./accounts.html">Accounts</a></div></li>
+                    <li><div><a href="helpIndex.html">Help</a></div></li>
+                    <li><div id="loginButton"><a href = "./loginIndex.html">Login</a></div></li>
+                </ul>
+            </div>
+        </div>
+        <div id="signupContainer">
+            <div id="signupBody">
+                <div><h3>Fill up the form below to get started!</h3></div>
+                <div id="form">
+                    <form>
+                        Profile Picture:<br>
+                        <input type="file" id="propic"><br>
+                        First Name: <br>
+                        <input type="text" name="firstName" id="firstName"><br>
+                        Last Name: <br>
+                        <input type="text" name="lastName" id = "lastName"><br>
+                        Username: <br>
+                        <input type="text" name="username" id = "username"><br>
+                        Password: <br>
+                        <input type="password" name="password" id = "password"><br>
+                        Confirm Password: <br>
+                        <input type="password" name="confirmpw" id="confirmpw"><br>
+                        E-mail ID: <br>
+                        <input type="email" name="email" id="email"><br>
+                        Highest Education Level: <br>
+                        <input type="text" name="eduLevel" id = "eduLevel"><br>
+                        Phone Number: <br>
+                        <input type="text" name="phoneNumber" id = "phoneNumber"><br>
+                        <button type="submitBtn" id = "signUpSubmit">Submit!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="popupWindow" id="saveConfirm">
+                <span class="helper"></span>
+                <div>
+                    <div class="popupCloseButton" id="savePopupCloseButton1">X</div>
+                    <div class="popupTitle" id="signUpPopup"><h2>Signup Failed</h2></div>
+                    <h4 id = "failExplanation">Mismatched passwords, reserved email or phone number already taken. Please try again.</h4>
+                </div>
+            </div>
+        <script src="signup.js"></script>
+    </body>
+    <footer>
+
+    </footer>
+</html>
