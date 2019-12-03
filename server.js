@@ -503,15 +503,17 @@ app.post('/users', (req, res) => {
 app.put('/users/:username', (req, res) => {
 	log("Reached the put users function");
 	const username = req.params.username;
-	log("username is ", username);
+	//log("username is ", username);
 	const body = req.body;
-	log("req.body is ", req.body);
+	//log("req.body is ", req.body);
 	User.findOneAndUpdate({userName: username}, {$set: body}, {new: true}).then((user) => {
 		log("User after put is: ", user);
 		if (!user) {
             log("Update response was NULL");
 			res.status(404).send()
 		} else {   
+			req.session.username = req.body.userName;
+			log("req.session.username is now ", req.session.username);
 			res.send(user)
 		}
 	})
