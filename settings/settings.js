@@ -2,11 +2,14 @@
 const log = console.log;
 log('Loaded front-end javascript.');
 function getLoggedInInfo(e){
-    e.preventDefault();
+    if (e){
+        e.preventDefault();
+    }
+    const x = document.getElementById('settingsContainer');
+    x.style.display = "block";
     let data; 
     log("Reached the getLoggedIn function");
     let url = '/users/check-session';
-    const defaultId = '5de2fe71ae2dcd0f24b911e7';
     //url = '/users/' + defaultId;
     fetch(url).then((response) => {
         if (response.status == 200){

@@ -149,6 +149,7 @@ label {
     padding-top: 100px;
     margin-bottom: 100px;
     background-color: #0B0C10;
+    display: none;
 }
 
 #settingsBody{
