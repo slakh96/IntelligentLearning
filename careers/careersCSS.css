@@ -1,3 +1,32 @@
+/*#careersTitle {
+    margin-top: 5%; 
+    font-size: 35px; 
+    margin-left: 38%; 
+    color: gray; 
+}
+
+#careersSubTitle {
+    margin-top: 1%; 
+    font-size: 17px; 
+    margin-left: 26%; 
+    color: gray; 
+}
+
+.careerEntry{
+    border: 2px solid gray;
+    padding: 15px;
+    height: 220px;
+}
+
+
+a{
+    color: inherit;
+    text-decoration: none;
+}
+
+body {
+    background-color: white;   
+}*/
 
 *{
     margin: 0px; 
@@ -9,11 +38,10 @@ a{
     text-decoration: none; 
 }
 
-.questionTitle{
+.jobTitle{
     font-weight: bold;
     border-bottom: 2px solid #66FCF1;
     margin-left: 7px; 
-    margin-bottom: 10px;
     color: black;
 }
 
@@ -33,12 +61,41 @@ a{
     font-family: 'Andale Mono';
 }
 
-#faqContainer{
+#buttonContainer {
+    padding: 30px; 
+    margin-left: 10%; 
+    margin-right: 0%;
+}
+
+#buttonContainer ul li {
+    display: inline;
+}
+
+#buttonContainer div {
+    display: inline-block;
+    width: 10%;
+    text-align: center; 
+    margin: 5px;
+}
+
+#buttonContainer li div a:hover{
+    transition: all 0.5s;
+    border-bottom: 2px solid #66FCF1;
+    cursor: pointer;
+}
+
+#signupButton a:hover, #loginButton a:hover {
+    border: 2px solid #66FCF1;
+    cursor: pointer;
+    border-radius: 10%;
+}
+
+#whyusContainer{
     width: 100%;
     background-color: #0B0C10;
 }
 
-#faq{
+#whyus{
     padding-top: 100px;
     margin-left: 20%;
     margin-right: 20%;
@@ -46,14 +103,13 @@ a{
 }
 
 #subheader{
-    text-align: center;
+    margin-left: 15px;
 }
 
 #headinger {
     font-size: 40px;
     font-family: 'Andale Mono';
     padding: 5px;
-    text-align: center;
 }
 
 #oneLiner {
@@ -61,7 +117,7 @@ a{
     padding: 5px;
 }
 
-.faqEntry img {
+.reason img {
     height: 200px; 
     margin-left: 28%; 
     border: 10px solid #0B0C10;
@@ -69,12 +125,12 @@ a{
     transition: all 0.5s;
 }
 
-.faqEntry img:hover {
+.reason img:hover {
     border: 10px solid #66FCF1;
     transition: all 0.5s;
 }
 
-.description {
+.desc {
     text-align: center;
     color: black;
     font-size: 14px;
