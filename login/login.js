@@ -35,23 +35,24 @@ function onLogin(e) {
                 $('#saveConfirm').show();
                 log("Rejecting promise in login js");
                 return Promise.reject(res);
+
             }
         }
-    ).then(
-        fetch(sessionURL).then(resp => {
-            log(resp);
-            if (resp.status == 200){
-                resp.json().then((resp) => {
-                    log("haha")
-                    log(resp)
-                })
-            } else {
-                return Promise.reject(resp);
-            }
-        }).catch( error => {
-            log(error);
-        })
-    ).then(
+    )//.then(
+    //     fetch(sessionURL).then(resp => {
+    //         log(resp);
+    //         if (resp.status == 200){
+    //             resp.json().then((resp) => {
+    //                 log("haha")
+    //                 log(resp)
+    //             })
+    //         } else {
+    //             return Promise.reject(resp);
+    //         }
+    //     }).catch( error => {
+    //         log(error);
+    //     })
+     .then(
         () => {
             setTimeout(() => {
                 //location.href = "../mainpage/mainpage.html"
