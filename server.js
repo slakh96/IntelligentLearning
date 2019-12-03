@@ -54,13 +54,16 @@ app.use(
 // mainpage route will check if the user is logged in and serve
 // the mainpage
 app.get('/mainpage', (req, res) => {
+	log(req.session);
 	if (req.session.user) {
-		const username = req.session.userName
+		const username = req.session.username
+		log("USERNAME IS ")
+		log(username);
 		User.find({userName:username}).then( (user) => {
 			if (!user) {
 				res.status(404).send();
 			} else {
-				const allPosts = []
+				let allPosts = []
 				Post.find({}).then((posts) => {
 					if (!posts) {
 						res.status(404).send();
@@ -262,13 +265,16 @@ app.post("/authentications/login", (req, res) => {
 		userName: req.body.userName, 
 		password: req.body.password
 	});
+
+	const redirect = "/mainpage"
 	
 	Auth.findByUsernamePassword(auth.userName, auth.password).then(
 		user => {
 			log("Adding a user to the session: ", user.userName);
 			req.session.user = user._id;
 			req.session.username = user.userName;
-			res.send({currentUser: req.session.userName});
+			//res.send({currentUser: req.session.userName});
+			res.redirect(redirect);
 		}
 	).catch((error) => {
 		log("There was an error in authentications login function ", error);
