@@ -667,60 +667,6 @@ app.patch('/users/:id', (req, res) => {
 
 })
 
-// app.patch("/users/:wildcard/:query", (req, res) => {
-// 	const wildcard = req.params.wildcard; 
-// 	const query = req.params.query;
-// 	let findQuery;
-// 	switch(wildcard){
-// 		case "userName":
-// 			findQuery = {
-// 			userName: query 
-// 			}
-// 			break;
-// 		case "experience":
-// 			findQuery = {
-// 				experience: query
-// 			}
-// 			break;
-// 		case "firstName":
-// 			findQuery = {
-// 				firstName: query
-// 			}
-// 			break;
-// 		case "lastName":
-// 			findQuery = {
-// 				lastName: query
-// 			}
-// 			break;
-// 		case "email":
-// 			findQuery = {
-// 				email: query
-// 			}
-// 			break;
-// 		default:
-// 			log("Bad search query. Query by username, experience, firstname, or lastname.");
-// 			res.status(400).send();
-// 			break;
-// 	}
-// 	log("the find query generated was : ", findQuery)
-// 	User.find(findQuery).then((users) => {
-// 		if (!users){
-// 			res.status(404).send();
-// 		}
-// 		log("INSIDE WILDCARD PATCH FINCTION TE USERS IS :")
-// 		log(users)
-// 		if (users.length == 1){
-// 			users = users[0];
-// 		}
-// 		//res.send(users)
-// 	})
-	
-	
-
-// });
-
-
-
 /*************************************************/
 // Express server listening...
 const port = process.env.PORT || 3002

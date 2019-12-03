@@ -38,13 +38,6 @@ function addPost(e) {
     let content = document.querySelector("#postCreatorInput").value; 
     let username = "";
     const cookieurl = '/users/check-session';
-    // The data we are going to send in our request
-    let data = {
-        userName: "kasperiKapanen", //TODO: Change to person logged in
-        content: "This is a test post",
-        time: new Date(),
-        title: "I am a Leafs player"
-    }
     // Create our request constructor with all the parameters we need
     const request = new Request(url, {
         method: 'POST', 
@@ -66,22 +59,37 @@ function addPost(e) {
                     if (resp){
                         log("haha ooga booga")
                         log(resp)
+                        username = resp.currentUser;
+                        // The data we are going to send in our request
+                        let data = {
+                            userName: username, //TODO: Change to person logged in
+                            content: content,
+                            time: time,
+                            title: title
+                        }
+                        return data;
                     } else {
                         log("ooga booga")
                         return Promise.reject(resp);
                     }
                 }
+            ).then(
+                data => {
+                    log("USERNAME HAHA")
+                    log(username)
+                    if (data.userName.length > 0){
+                        fetch(request).then(function(res) {
+                            log(res);
+                        })
+                    } else {
+                        return Promise.reject(username);
+                    }
+                }
+            ).catch(
+                error => {
+                    if (error) throw error
+                }
             )
-        }
-    ).then(
-        res => {
-            if (username.length > 0){
-                fetch(request).then(function(res) {
-                    log(res);
-                })
-            } else {
-                return Promise.reject()
-            }
         }
     ).catch((error) => {
         log("There was an error when adding a post!");
