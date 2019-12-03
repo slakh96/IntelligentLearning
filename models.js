@@ -70,10 +70,6 @@ const UserSchema = new mongoose.Schema({
 		type: mongoose.Mixed,
 		required: false
     },
-    profilePic: {
-		type: String,
-		required: false
-    },
     newPostingsForAsTutorCourses: {
         type: Boolean,
         required: false

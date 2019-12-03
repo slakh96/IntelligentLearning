@@ -54,10 +54,8 @@ app.use(
 // mainpage route will check if the user is logged in and serve
 // the mainpage
 app.get('/mainpage', (req, res) => {
-	log(req.session);
 	if (req.session.user) {
 		const username = req.session.username
-		log("USERNAME IS ")
 		log(username);
 		User.find({userName:username}).then( (user) => {
 			if (!user) {

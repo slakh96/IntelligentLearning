@@ -146,7 +146,6 @@ function addUser(e){
         resumeLink: "RESUME LINK", 
         experience: "HIGH SCHOOL DROPOUT", 
         availability: "10-10-2019", 
-        profilePic: "/desktop/pic", 
         newPostingsForAsTutorCourses: true, 
         newPostingsForAsTuteeCourses: false, 
         adminNotifications: true, 
