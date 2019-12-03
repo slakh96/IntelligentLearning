@@ -213,6 +213,12 @@ app.post("/users", (req, res) => {
 
 	newUser.save().then(
 		result => {
+			
+			req.session.user = result._id;
+			req.session.username = result.userName;
+			log("reqsessionuser is ", req.session.user);
+			log("req session username is  ", req.session.username);
+			//log("Result after signing up is ", result);
 			res.send(result);
 		}, error => {
 			log(error);
