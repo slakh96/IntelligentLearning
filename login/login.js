@@ -9,9 +9,11 @@ function onLogin(e) {
     e.preventDefault();
     const username = document.querySelector("#usernameText").value;
     const password = document.querySelector("#passwordText").value;
+    let currentUser = "";
 
-    log("about to send to Authentication database")
-    const url = '/authentications/login' 
+    log("about to send to Authentication database");
+    const url = '/authentications/login'; 
+    let sessionURL = '/users/check-session';
 
     const auth = {
         userName: username, 
@@ -36,9 +38,21 @@ function onLogin(e) {
             }
         }
     ).then(
+        fetch(sessionURL).then(resp => {
+            if (resp.status == 200){
+                resp.json().then(resp => {
+                    log(resp.currentUser)
+                })
+            } else {
+                return Promise.reject(resp);
+            }
+        }).catch( error => {
+            log(error);
+        })
+    ).then(
         () => {
             setTimeout(() => {
-                location.href = "../mainpage/mainpage.html"
+                //location.href = "../mainpage/mainpage.html"
             }, 1000);
         }
     ).catch(
