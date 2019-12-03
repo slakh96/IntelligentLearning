@@ -174,12 +174,14 @@ app.post("/users/login", (req, res) => {
 });
 
 app.get("/users/logout", (req, res) => {
-	log("INSIDE USERS LOGOUT THIS IS HIGHLY BAD")
+	log("INSIDE USERS LOGOUT THIS IS HIGHLY")
 	req.session.destroy(error => {
 		if (error) {
 			res.status(500).send(error);
 		} else {
-			res.send();
+			log("Cleared session cookie");
+			res.status(200).send();
+			//res.sendFile(__dirname + '/login/login.html');
 		}
 	});
 });
@@ -720,6 +722,41 @@ app.patch('/users/:id', (req, res) => {
 		res.status(400).send() // bad request for changing the user.
 	})
 
+})
+
+// GET COURSE BY COURSE CODE
+app.get('/users/:code', (req, res) => {
+	const courseCode = req.params.code;
+	Course.findOne({code: courseCode}).then((course) => {
+		if (!course){
+			log("Couldn't find the course with the specified code");
+			res.status(404).send()  // could not find this user
+		}
+		else {
+			// log("Course is: ", course);
+			res.status.send(course);
+		}
+	}).catch((error) => {
+		log("There was an error when sending the course: ", error);
+		res.status(500).send();  // server error
+	})
+})
+
+// GET reviews BY target
+app.get('/users/:target', (req, res) => {
+	const targetName = req.params.target;
+	Review.find({target: targetName}).then((allReviews) => {
+		if (!allReviews){
+			res.status(404).send()  // could not find reviews
+		}
+		else {
+			// log("Course is: ", course);
+			res.status.send(allReviews);
+		}
+	}).catch((error) => {
+		log("There was an error when sending the course: ", error);
+		res.status(500).send();  // server error
+	})
 })
 
 /*************************************************/
