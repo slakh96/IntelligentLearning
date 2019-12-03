@@ -16,6 +16,14 @@ const models = [User, Course, Post, Review, Auth];
 // body-parser: middleware for parsing HTTP JSON body into a usable object
 const bodyParser = require('body-parser'); 
 const session = require('express-session');
+
+// handlebars templating engine
+const hbs = require('hbs')
+// Set express property 'view engine' to be 'hbs'
+app.set('view engine', 'hbs')
+// setting up partials directory
+// hbs.registerPartials(__dirname + '/views/partials')
+
 app.use(bodyParser.json());
 
 app.use("/", express.static(__dirname))
@@ -42,6 +50,66 @@ app.use(
 		}
 	})
 )
+
+// profile page route will check if the user is logged in and serve
+// the profile page
+app.get('/profile_page', (req, res) => {
+	if (req.session.user) {
+		const username = req.session.userName
+		User.find({userName:username}).then( (user) => {
+			if (!user) {
+				res.status(404).send();
+			} else {
+				const courses = []
+				user.coursesTaught.array.forEach( (courseCode) => {
+					Course.find({code:courseCode}).then( (course) => {
+						if (!course) {
+							res.status(404).send();
+						} else {
+							courses.push({code:course.code, name:course.name, link:course.link})
+						}
+					}).catch(
+						error => {
+							res.status(500).send();
+						}
+					);
+				});
+				let reviews = []
+				Review.find({target: username}).then( (allReviews) => {
+					if (!allReviews) {
+						res.status(404).send();
+					} else {
+						reviews = allReviews
+					}
+				}).catch(
+					error => {
+						res.status(500).send();
+					}
+				);
+				res.render('profile_page.hbs', {
+					profilePic: user.profilePic,
+					firstName: user.firstName,
+					lastName: user.lastName,
+					description: user.description,
+					email: user.email,
+					phoneNumber: user.phoneNumber,
+					linkedInLink: user.linkedInLink,
+					resumeLink: user.resumeLink,
+					about: user.about,
+					experience: user.experience,
+					userCourse: courses,
+					userReview: reviews
+				})
+			}
+		}).catch(
+			error => {
+				res.status(500).send();
+			}
+		);
+	} else {
+		res.redirect('/login')
+	}
+})
 
 /***** SULTAN MADE THESE FUNCTIONS SO ERROR CHECK PLS *****/
 
