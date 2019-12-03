@@ -241,13 +241,68 @@ app.post("/authentications", (req, res) => {
 	);
 	
 });
+app.put("/authentications/:username", (req, res) => {
+	log("Reached username update in auth PUT function");
+	const username = req.params.username;
+	const newUsername = req.body.userName;
+	const password = req.body.password;
+	const query = {userName: newUsername};
+	if (password != undefined && password.length > 0){
+		query.password = password;
+	}
+	log("New username is ", newUsername);
+	log("New password is ", password)
+	log("Query is ", query);
 
+	Auth.findOne({userName: username}).then(
+		user => {
+			if (!user){
+				res.status(404).send();
+			} else {
+				user.userName = newUsername;
+				user.password = password;
+				user.save().then(
+					result => {
+						if (!result){
+							log("Server side error")
+							res.status(500).send();
+						} else {
+							res.status(200).send();
+						}
+					}
+				)
+			}
+		}
+	)
+
+	// const updatedAuthUser = new Auth(query);
+	// updatedAuthUser.save().then((result) => {
+	// 	log("Result is ", result);
+	// 	if (!result){
+	// 		res.status(404).send();
+	// 	}
+	// 	else{
+	// 		res.status(200).send(result);
+	// 	}
+	// })
+});
+
+
+
+// });
 app.patch("/authentications/:username", (req, res) => {
 	log("Reached username update in auth function");
 	const username = req.params.username;
 	const newUsername = req.body.userName;
+	const password = req.body.password;
+	const query = {userName: newUsername};
+	if (password != undefined && password.length > 0){
+		query.password = password;
+	}
 	log("New username is ", newUsername);
-	Auth.findOneAndUpdate({userName: username}, {$set: {userName: newUsername}}, {new: true}).then((user) => {
+	log("New password is ", password)
+	log("Query is ", query);
+	Auth.findOneAndUpdate({userName: username}, {$set: query}, {new: true}).then((user) => {
 		log("User after put is: ", user);
 		if (!user) {
             log("Update response was NULL");

@@ -128,10 +128,16 @@ function saveLoggedInInfo(e){
                     loggedInUser = resp.currentUser; 
                     url = '/authentications/' + loggedInUser;
                     log("The current logged in user is: ", loggedInUser);
-                    const data = {userName: document.getElementById('username').value}
+                    const data = {userName: document.getElementById('username').value, 
+                                password: document.getElementById('password').value}
                     log("data before auth update is ", data);
+                    let reqMethod = 'PATCH';
+                    if (data.password.length > 0){
+                        reqMethod = 'PUT';
+                    }
+                    log("The request method is ", reqMethod);
                     const request = new Request(url, {
-                        method: 'PATCH', 
+                        method: reqMethod, 
                         body: JSON.stringify(data),
                         headers: {
                             'Accept': 'application/json, text/plain, */*',
