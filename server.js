@@ -51,6 +51,7 @@ app.post("/users/login", (req, res) => {
 	const password = req.body.password; 
 
 	Auth.findByEmailPassword(username, password).then( user => {
+		log("Setting the user id to be the current user...", user.userName)
 		req.session.user = user._id;
 		req.session.username = user.userName;
 		res.send({
@@ -62,6 +63,7 @@ app.post("/users/login", (req, res) => {
 });
 
 app.get("/users/logout", (req, res) => {
+	log("INSIDE USERS LOGOUT THIS IS HIGHLY BAD")
 	req.session.destroy(error => {
 		if (error) {
 			res.status(500).send(error);
@@ -137,12 +139,13 @@ app.post("/authentications/login", (req, res) => {
 	
 	Auth.findByUsernamePassword(auth.userName, auth.password).then(
 		user => {
+			log("Adding a user to the session: ", user.userName);
 			req.session.user = user._id;
 			req.session.username = user.userName;
 			res.send({currentUser: req.session.userName});
 		}
 	).catch((error) => {
-		log("There was an error in authentications login function");
+		log("There was an error in authentications login function ", error);
 		res.status(400).send();
 	})
 })
@@ -159,6 +162,7 @@ app.get("/authentications/:name", (req, res) => {
 });
 
 app.get("/users/:email", (req, res) => {
+	log("Reached users email function");
 	const email = req.params.email;
 	User.find({email: email}).then(user => {
 		if (user.length > 0){
@@ -222,6 +226,7 @@ app.delete("/users/:username", (req, res) => {
 		if (!user) {
 			res.status(404).send();
 		} else {
+			log("IN SERVER JS THE STUDENT IS ", student)
 			res.send(student);
 		}
 	}).catch(
@@ -301,7 +306,7 @@ app.get("/users/teach/:course_learning", (req, res) => {
 
 app.get("/users/:wildcard/:query", (req, res) => {
 	const wildcard = req.params.wildcard; 
-	const query = req.params.wildcard;
+	const query = req.params.query;
 	let findQuery;
 	switch(wildcard){
 		case "userName":
@@ -334,11 +339,12 @@ app.get("/users/:wildcard/:query", (req, res) => {
 			res.status(400).send();
 			break;
 	}
-
+	log("the find query generated was : ", findQuery)
 	User.find(findQuery).then((users) => {
 		if (!users){
 			res.status(404).send();
 		}
+		log("INSIDE WILDCARD FINCTION TE USERS IS :")
 		log(users)
 		res.send(users)
 	})
