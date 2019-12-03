@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="profile_page.js"></script>
  </head>
- <body>
+ <body onload="getLoggedInInfo()">
     <header>
         <div id="headerContainer">
             <ul>
@@ -31,14 +31,9 @@
     </header>
     <div id="content">
         <div id="leftColumn">
-            <img id="profilePic" src="../images/profilePic.png" alt="University of Toronto">
+            <img id="profilePic" alt="University of Toronto">
             <div id="personalInfo">
-                <h2>Jack Violence</h2>
-                <p>
-                    I'm a strong 4th year student at the University of Toronto's Computer Science department. After spending over 2 
-                    years teaching various students fundamental JavaScript concepts, I've realized that my passion is to help new 
-                    students gain an interest in web development.
-                </p>
+                
             </div>
             <div id="contactInfo">
                 <h2>Contact Info</h2>
@@ -49,102 +44,17 @@
             </div>
         </div>  
         <div id="mainContent">
-            <div class="entry">
+            <div class="entry" id="about">
                 <h2>About</h2>
-                <p>
-                    I'm a strong 4th year student at the University of Toronto's Computer Science department. After spending over 2 
-                    years teaching various students fundamental JavaScript concepts, I've realized that my passion is to help new 
-                    students gain an interest in web development.
-                </p>
             </div>
-            <div class="entry">
+            <div class="entry" id="course">
                 <h2>Courses</h2>
                 <div class="course">
                     <h4>CSC309H1F</h4>
                     <h5>Programming On The Web</h5>
-                    <div class="specialButton">
-                        <a class="popupTrigger" id="coursePopupTrigger1">Check Availability</a>
-                        <div class="popupWindow" id="coursePopupWindow1">
-                            <span class="helper"></span>
-                            <div>
-                                <div class="popupCloseButton" id="coursePopupCloseButton1">X</div>
-                                <div class="popupTitle"><h2>Availability</h2></div>
-                                <table>
-                                    <tr>
-                                        <td>Monday</td>
-                                        <td>11:00p.m.- 1a.m.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Wednesday</td>
-                                        <td>2:00a.m.- 4:a.m.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Friday</td>
-                                        <td>12:00a.m.- 3:a.m.</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="course">
-                    <h4>CSC369H1F</h4>
-                    <h5>Operating Systems</h5>
-                    <div class="specialButton">
-                        <a class="popupTrigger" id="coursePopupTrigger2">Check Availability</a>
-                        <div class="popupWindow" id="coursePopupWindow2">
-                            <span class="helper"></span>
-                            <div>
-                                <div class="popupCloseButton" id="coursePopupCloseButton2">X</div>
-                                <div class="popupTitle"><h2>Availability</h2></div>
-                                <table>
-                                    <tr>
-                                        <td>Monday</td>
-                                        <td>11:00p.m.- 1a.m.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Wednesday</td>
-                                        <td>2:00a.m.- 4:a.m.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Friday</td>
-                                        <td>12:00a.m.- 3:a.m.</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="course">
-                    <h4>CSC343H1F</h4>
-                    <h5>Intro To Databases</h5>
-                    <div class="specialButton">
-                        <a class="popupTrigger" id="coursePopupTrigger3">Check Availability</a>
-                        <div class="popupWindow" id="coursePopupWindow3">
-                            <span class="helper"></span>
-                            <div>
-                                <div class="popupCloseButton" id="coursePopupCloseButton3">X</div>
-                                <div class="popupTitle"><h2>Availability</h2></div>
-                                <table>
-                                    <tr>
-                                        <td>Monday</td>
-                                        <td>11:00p.m.- 1a.m.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Wednesday</td>
-                                        <td>2:00a.m.- 4:a.m.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Friday</td>
-                                        <td>12:00a.m.- 3:a.m.</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-            <div class="entry">
+            <div class="entry" id="experience">
                 <h2>Experience</h2>
                 <h4>CSC309H1F Teaching Assistant</h4>
                 <p>
@@ -154,7 +64,7 @@
                     teaching makes me an excellent candidate to be a tutor.
                 </p>
             </div>
-            <div class="entry">
+            <div class="entry" id="review">
                 <h2>Reviews</h2>
                 <h4>Dell MacApple:</h4>
                 <p>
@@ -163,35 +73,6 @@
                     teaching JavaScript and it was evident that this interest was backed by various years of experience. I would 
                     recommend Jack for any CSC309 student.
                 </p>
-                <a class="popupTrigger" id="reviewPopupTrigger">View More</a>
-                <div class="popupWindow" id="reviewPopupWindow">
-                    <span class="helper"></span>
-                    <div>
-                        <div class="popupCloseButton" id="reviewPopupCloseButton">X</div>
-                        <div class="popupTitle"><h2>Reviews</h2></div>
-                        <h4>Magellan Lasagna:</h4>
-                        <p>
-                            I was tutored by Jack for CSC309 several times. He had a strong grasp of JavaScript's fundamental concepts 
-                            and he was able to clearly explain even the most difficult of concepts. He clearly had a strong interest in 
-                            teaching JavaScript and it was evident that this interest was backed by various years of experience. I would 
-                            recommend Jack for any CSC309 student.
-                        </p>
-                        <h4>Kale Arugula:</h4>
-                        <p>
-                            I was tutored by Jack for CSC309 several times. He had a strong grasp of JavaScript's fundamental concepts 
-                            and he was able to clearly explain even the most difficult of concepts. He clearly had a strong interest in 
-                            teaching JavaScript and it was evident that this interest was backed by various years of experience. I would 
-                            recommend Jack for any CSC309 student.
-                        </p>
-                        <h4>Christian Buddha:</h4>
-                        <p>
-                            I was tutored by Jack for CSC309 several times. He had a strong grasp of JavaScript's fundamental concepts 
-                            and he was able to clearly explain even the most difficult of concepts. He clearly had a strong interest in 
-                            teaching JavaScript and it was evident that this interest was backed by various years of experience. I would 
-                            recommend Jack for any CSC309 student.
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
