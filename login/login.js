@@ -39,9 +39,11 @@ function onLogin(e) {
         }
     ).then(
         fetch(sessionURL).then(resp => {
+            log(resp);
             if (resp.status == 200){
-                resp.json().then(resp => {
-                    log(resp.currentUser)
+                resp.json().then((resp) => {
+                    log("haha")
+                    log(resp)
                 })
             } else {
                 return Promise.reject(resp);
