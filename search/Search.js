@@ -122,7 +122,7 @@ function obtainSearchResults(){
         mainTitleDiv.classList.add("imageOverlayFixer")
         
         const searchResultH4 = document.createElement('h4')
-        searchResultH4.textContent = "Search Results for: \' + query + \'"
+        searchResultH4.textContent = "Search Results for: " + query
         mainTitleDiv.appendChild(searchResultH4)
     
         masterDiv.appendChild(mainTitleDiv)
