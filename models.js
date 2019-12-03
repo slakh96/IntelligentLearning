@@ -131,10 +131,6 @@ const ReviewSchema = new mongoose.Schema({
 });
 
 const PostSchema = new mongoose.Schema({
-  postID: {
-    type: Number,
-    required: true
-  },
   userName: {
     type: String,
 		required: true,
@@ -220,7 +216,7 @@ AuthSchema.statics.findByUsername = function(username) {
 
 
 
-const User = mongoose.model('users', UserSchema);
+const User = mongoose.model("users", UserSchema);
 
 const Course = mongoose.model("courses", CourseSchema);
 

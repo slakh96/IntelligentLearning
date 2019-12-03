@@ -271,8 +271,8 @@ app.post("/authentications/login", (req, res) => {
 			log("Adding a user to the session: ", user.userName);
 			req.session.user = user._id;
 			req.session.username = user.userName;
-			//res.send({currentUser: req.session.userName});
-			res.redirect(redirect);
+			res.send({currentUser: req.session.userName});
+			//res.redirect(redirect);
 		}
 	).catch((error) => {
 		log("There was an error in authentications login function ", error);
