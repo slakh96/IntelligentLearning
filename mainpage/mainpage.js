@@ -130,7 +130,7 @@ function updateDOM(posts){
             height += 250;
             document.querySelector("#postsContainer").innerHTML += "<div class=\"post\"><div class=\"username\"><a href=\"./profile_page.html\">"+(currentPost.title)+"</a></div><div class=\"timePosted\"><a>"+(currentPost.time)+"</a><p>"+(currentPost.userName)+"</p></div><br><div class=\"postText\"><a>"+(currentPost.content)+"</a></div></div>"
         }
-        document.getElementById("#postsContainer").style.height = height+"px"
+        document.getElementById("bodyContainer").style.height = (100 + height)+"px"
     }
 }
 
