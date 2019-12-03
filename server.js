@@ -478,6 +478,24 @@ app.post('/users', (req, res) => {
 
 });
 
+app.put('/users/:username', (req, res) => {
+	log("Reached the put users function");
+	const username = req.params.username;
+	log("username is ", username);
+	const body = req.body;
+	log("req.body is ", req.body);
+	User.findOneAndUpdate({userName: username}, {$set: body}, {new: true}).then((user) => {
+		log("User after put is: ", user);
+		if (!user) {
+            log("Update response was NULL");
+			res.status(404).send()
+		} else {   
+			res.send(user)
+		}
+	})
+	
+});
+
 // a PATCH route for changing properties of a resource.
 // (alternatively, a PUT is used more often for replacing entire resources).
 app.patch('/users/:id', (req, res) => {
@@ -506,6 +524,60 @@ app.patch('/users/:id', (req, res) => {
 	})
 
 })
+
+// app.patch("/users/:wildcard/:query", (req, res) => {
+// 	const wildcard = req.params.wildcard; 
+// 	const query = req.params.query;
+// 	let findQuery;
+// 	switch(wildcard){
+// 		case "userName":
+// 			findQuery = {
+// 			userName: query 
+// 			}
+// 			break;
+// 		case "experience":
+// 			findQuery = {
+// 				experience: query
+// 			}
+// 			break;
+// 		case "firstName":
+// 			findQuery = {
+// 				firstName: query
+// 			}
+// 			break;
+// 		case "lastName":
+// 			findQuery = {
+// 				lastName: query
+// 			}
+// 			break;
+// 		case "email":
+// 			findQuery = {
+// 				email: query
+// 			}
+// 			break;
+// 		default:
+// 			log("Bad search query. Query by username, experience, firstname, or lastname.");
+// 			res.status(400).send();
+// 			break;
+// 	}
+// 	log("the find query generated was : ", findQuery)
+// 	User.find(findQuery).then((users) => {
+// 		if (!users){
+// 			res.status(404).send();
+// 		}
+// 		log("INSIDE WILDCARD PATCH FINCTION TE USERS IS :")
+// 		log(users)
+// 		if (users.length == 1){
+// 			users = users[0];
+// 		}
+// 		//res.send(users)
+// 	})
+	
+	
+
+// });
+
+
 
 /*************************************************/
 // Express server listening...

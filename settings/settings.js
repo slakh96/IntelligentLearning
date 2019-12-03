@@ -3,8 +3,7 @@ const log = console.log;
 log('Loaded front-end javascript.');
 function getLoggedInInfo(e){
     e.preventDefault();
-    let data;
-    let resultAsJson; 
+    let data; 
     log("Reached the getLoggedIn function");
     let url = '/users/check-session';
     const defaultId = '5de2fe71ae2dcd0f24b911e7';
@@ -15,8 +14,10 @@ function getLoggedInInfo(e){
         response.json().then((resp) => {
             const loggedInUser = resp.currentUser; 
             fetch("/users/userName/" + loggedInUser).then((dat) => {  
+                log("dat is ", dat);
                 dat.json().then((da) => {
-                    const data = da[0]
+                    log("Da is ", da);
+                    const data = da[0];
                     document.getElementById('firstName').value = data.firstName;
                     document.getElementById('lastName').value = data.lastName;
                     document.getElementById('username').value = data.userName;
@@ -75,43 +76,57 @@ function getLoggedInInfo(e){
 function saveLoggedInInfo(e){
     e.preventDefault();
     log("Reached the saveLoggedIn function");
-    const id = '5ddac6f93a9d60409411f3f5';
-    const url = '/users/' + id;
-    log("URL is ", url);
-    const data = {firstName: document.getElementById('firstName').value,
-            lastName: document.getElementById('lastName').value, 
-            email: document.getElementById('email').value,
-            highestEdu: document.getElementById('eduLevel').value, 
-            userName: document.getElementById('username').value, 
-            phoneNumber: parseInt(document.getElementById('phone').value),
-            coursesTaught: document.getElementById('teaching').value.split(';'), 
-            coursesLearning: document.getElementById('beingTaught').value.split(';'), 
-            about: document.getElementById('about').value, 
-            experience: document.getElementById('experience').value, 
-            linkedInLink: document.getElementById('linkedin').value, 
-            profilePic: document.getElementById('pic').value, 
-            newPostingsForAsTutorCourses: document.getElementById('asTutorN').checked, 
-            resumeLink: document.getElementById('resume').value, 
-            availability: document.getElementById('availability').value, 
-            newPostingsForAsTuteeCourses: document.getElementById('asTuteeN').checked,
-            adminNotifications: document.getElementById('adminN').checked, 
-            specialOffersPromotions: document.getElementById('promotionsN').checked
-            };
-    // Create our request constructor with all the parameters we need
-    const request = new Request(url, {
-        method: 'PATCH', 
-        body: JSON.stringify(data),
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-    });
-    fetch(request).then(function(response) {
-        log("Sent!");
-        log(response);
-    }).catch((err) => {
-        log("ERROR when receiving from savefn: ", err)
-    });
+
+    let url = '/users/check-session';
+    const defaultId = '5de2fe71ae2dcd0f24b911e7';
+    //url = '/users/' + defaultId;
+    fetch(url).then((response) => {
+        if (response.status == 200){
+            response.json().then((resp) => {
+                const loggedInUser = resp.currentUser; 
+                log("The current logged in user is: ", loggedInUser);
+                const data = {firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value, 
+                    email: document.getElementById('email').value,
+                    highestEdu: document.getElementById('eduLevel').value, 
+                    userName: document.getElementById('username').value, 
+                    phoneNumber: parseInt(document.getElementById('phone').value),
+                    coursesTaught: document.getElementById('teaching').value.split(';'), 
+                    coursesLearning: document.getElementById('beingTaught').value.split(';'), 
+                    about: document.getElementById('about').value, 
+                    experience: document.getElementById('experience').value, 
+                    linkedInLink: document.getElementById('linkedin').value, 
+                    profilePic: document.getElementById('pic').value, 
+                    newPostingsForAsTutorCourses: document.getElementById('asTutorN').checked, 
+                    resumeLink: document.getElementById('resume').value, 
+                    availability: document.getElementById('availability').value, 
+                    newPostingsForAsTuteeCourses: document.getElementById('asTuteeN').checked,
+                    adminNotifications: document.getElementById('adminN').checked, 
+                    specialOffersPromotions: document.getElementById('promotionsN').checked
+                };
+                const url = '/users/' + loggedInUser;
+                 const request = new Request(url, {
+                    method: 'PUT', 
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                fetch(request).then((response) => {
+                    log("Final response is ", response);
+                });
+            });
+        }
+    })
+
+
+    // fetch(request).then(function(response) {
+    //     log("Sent!");
+    //     log(response);
+    // }).catch((err) => {
+    //     log("ERROR when receiving from savefn: ", err)
+    // });
 };
 
 
