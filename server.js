@@ -51,6 +51,48 @@ app.use(
 	})
 )
 
+// mainpage route will check if the user is logged in and serve
+// the mainpage
+app.get('/mainpage', (req, res) => {
+	if (req.session.user) {
+		const username = req.session.userName
+		User.find({userName:username}).then( (user) => {
+			if (!user) {
+				res.status(404).send();
+			} else {
+				const allPosts = []
+				Post.find({}).then((posts) => {
+					if (!posts) {
+						res.status(404).send();
+					} else {
+						allPosts = posts
+					}
+				}, (error) => {
+					res.status(500).send(error) // server error
+				})
+				let coursesT = []
+				user.coursesTaught.forEach((course) => coursesT.push({courseName: course}))
+				let coursesL = []
+				user.coursesLearning.forEach((course) => coursesL.push({courseName: course}))
+				res.render('profile_page.hbs', {
+					profilePic: user.profilePic,
+					firstName: user.firstName,
+					lastName: user.lastName,
+					coursesTaught: coursesT,
+					coursesLearning: coursesL,
+					post: allPosts
+				})
+			}
+		}).catch(
+			error => {
+				res.status(500).send();
+			}
+		);
+	} else {
+		res.redirect('/login')
+	}
+})
+
 // profile page route will check if the user is logged in and serve
 // the profile page
 app.get('/profile_page', (req, res) => {

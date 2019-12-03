@@ -55,17 +55,21 @@
                 </div>
             </div>
             <div id="profileInfo">
-                <a href="./profile_page.html"><img src="../images/profilePic.png"></a>
+                <a href="./profile_page.html"><img src="../images/{{profilePic}}"></a>
                 <div id="profileName">
-                    <a href="./profile_page.html">Jack Violence</a>
+                    <a href="./profile_page.html">{{firstName}} {{lastName}}</a>
                 </div>
                 <div id="taughtSubjs">
                     <a>Subjects taught: <br></a>
-                    <a>CSC309, CSC369, CSC343</a>
+                    {{#each coursesTaught}}
+                    <a>{{courseName}}</a>
+                    {{/each}}
                 </div>
                 <div id="learningSubjs">
                     <a>Subjects being learned <br></a>
-                    <a>CSC411, CSC412</a>
+                    {{#each coursesLearning}}
+                    <a>{{courseName}}</a>
+                    {{/each}}
                 </div>
                 <div id="ratingTutor">
                     <a>Ratings <br></a>
