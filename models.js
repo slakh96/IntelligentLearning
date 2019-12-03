@@ -210,6 +210,16 @@ AuthSchema.statics.findByUsernamePassword = function(username, password) {
   });
 };
 
+AuthSchema.statics.findByUsername = function(username) {
+  const Auth = this;
+  return Auth.findOne({userName: username}).then((user) => {
+    if (!user){
+      return Promise.reject("No user matching username in this database.");
+    }
+    return Promise.resolve(user);
+  });
+}
+
 
 
 

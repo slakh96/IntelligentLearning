@@ -131,6 +131,22 @@ app.post("/authentications", (req, res) => {
 	
 });
 
+app.patch("/authentications/:username", (req, res) => {
+	log("Reached username update in auth function");
+	const username = req.params.username;
+	const newUsername = req.body.userName;
+	log("New username is ", newUsername);
+	Auth.findOneAndUpdate({userName: username}, {$set: {userName: newUsername}}, {new: true}).then((user) => {
+		log("User after put is: ", user);
+		if (!user) {
+            log("Update response was NULL");
+			res.status(404).send()
+		} else {   
+			res.send(user)
+		}
+	})
+});
+
 app.post("/authentications/login", (req, res) => {
 	const auth = new Auth({
 		userName: req.body.userName, 
@@ -211,7 +227,7 @@ app.delete("/authentications/:username", (req, res) => {
 		if (!user) {
 			res.status(404).send();
 		} else {
-			res.send(student);
+			res.send(user);
 		}
 	}).catch(
 		error => {
@@ -226,8 +242,8 @@ app.delete("/users/:username", (req, res) => {
 		if (!user) {
 			res.status(404).send();
 		} else {
-			log("IN SERVER JS THE STUDENT IS ", student)
-			res.send(student);
+			log("IN SERVER JS THE STUDENT IS ", user)
+			res.send(user);
 		}
 	}).catch(
 		error => {

@@ -76,14 +76,13 @@ function getLoggedInInfo(e){
 function saveLoggedInInfo(e){
     e.preventDefault();
     log("Reached the saveLoggedIn function");
-
     let url = '/users/check-session';
-    const defaultId = '5de2fe71ae2dcd0f24b911e7';
+    let loggedInUser;
     //url = '/users/' + defaultId;
     fetch(url).then((response) => {
         if (response.status == 200){
             response.json().then((resp) => {
-                const loggedInUser = resp.currentUser; 
+                loggedInUser = resp.currentUser; 
                 log("The current logged in user is: ", loggedInUser);
                 const data = {firstName: document.getElementById('firstName').value,
                     lastName: document.getElementById('lastName').value, 
@@ -118,7 +117,36 @@ function saveLoggedInInfo(e){
                 });
             });
         }
-    })
+    }).then((result) => {
+        url = '/users/check-session';
+        fetch(url).then((response) => {
+            if (response.status == 200){
+                response.json().then((resp) => {
+                    loggedInUser = resp.currentUser; 
+                    url = '/authentications/' + loggedInUser;
+                    log("The current logged in user is: ", loggedInUser);
+                    const data = {userName: document.getElementById('username').value}
+                    log("data before auth update is ", data);
+                    const request = new Request(url, {
+                        method: 'PATCH', 
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Accept': 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    fetch(request).then((response) => {
+                        if (response.status != 200){
+                            log("There was some error when updating auth");
+                        }
+                        else {
+                            log("Auth successfully updated");
+                        }
+                    })
+                });
+            };
+        });
+    });
 
 
     // fetch(request).then(function(response) {
