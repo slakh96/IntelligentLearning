@@ -1,0 +1,104 @@
+<html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <title>Profile Page</title>
+    <link rel="stylesheet" type="text/css" href="profile_page.css">
+    <link rel="stylesheet" type="text/css" href="../header_footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="profile_page.js"></script>
+ </head>
+ <body>
+    <header>
+        <div id="headerContainer">
+            <ul>
+                <li><a id="icon" href="../mainpage/mainpage.html">Intelligent Learning</a></li>
+                <li><div id="signupButton" class="normalButton"><a href="../SearchIndex.html">Search 🔍</a></div></li>
+                <li><div class="normalButton"><a href="../mainpage/mainpage.html">Home</a></div></li>
+                <li><div class="normalButton"><a href="../settings.html">Settings</a></div></li>
+                <li><div class="specialButton"><a href="../index.html">Sign Out</a></div></li>
+            </ul>
+        </div>
+    </header>
+    <div id="content">
+        <div id="leftColumn">
+            <img id="profilePic" src="../images/{{profilePic}}" alt="User Profile Picture">
+            <div id="personalInfo">
+                <h2>{{firstName}} {{lastName}}</h2>
+                <p>
+                    {{description}}
+                </p>
+            </div>
+            <div id="contactInfo">
+                <h2>Contact Info</h2>
+                <div><i class="fa fa-envelope"></i><a href="">{{email}}</a></div>
+                <div><i class="fa fa-phone"></i><a>{{phoneNumber}}</a></div>
+                <div><i class="fa fa-linkedin"><a href={{linkedInLink}}>LinkedIn</a></i></div>
+                <div><i class="fa fa-file"><a href={{resumeLink}}>Resume</a></i></div>
+            </div>
+        </div>  
+        <div id="mainContent">
+            <div class="entry">
+                <h2>About</h2>
+                <p>
+                    {{about}}
+                </p>
+            </div>
+            <div class="entry">
+                <h2>Courses</h2>
+                {{#each userCourse}}
+                <div class="course">
+                    <h4>{{code}}</h4>
+                    <a href={{link}}><h5>{{name}}</h5></a>
+                </div>
+                {{/each}}
+            </div>
+            <div class="entry">
+                <h2>Experience</h2>
+                {{#each experience}}
+                <h4>{{title}}</h4>
+                <p>
+                    {{jobDescription}}}
+                </p>
+                {{/each}}
+            </div>
+            <div class="entry">
+                {{#each userReview}}
+                <h2>Reviews</h2>
+                <h4>{{author}}</h4>
+                <p>
+                    {{content}}
+                </p>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div id="footerContainer">
+            <a id="icon" href="../mainpage.html">Intelligent Learning</a>
+            <table id="footerTable">
+                <tr>
+                    <td><div class="normalButton"><a href="../mainpage/mainpage.html">Home</a></div></td>
+                    <!---<td><div class="normalButton"><a href="whyus.html">About</a></div></td>--->
+                    <td><div class="normalButton"><a href="profile_page.html">Your Profile</a></div></td>
+                    <td><div class="normalButton"><a href="../index.html">Sign Out</a></div></td>
+                </tr>
+                <tr>
+                    <td><div class="normalButton"><a href="../SearchIndex.html">Search</a></div></td>
+                    <td><div class="normalButton"><a href="../settings.html">Settings</a></div></td>
+                    <!-- <td><div class="normalButton"><a>filler</a></div></td> -->
+                </tr>
+                <!-- <tr>
+                    <td><div class="normalButton"><a>filler</a></div></td>
+                    <td><div class="normalButton"><a>filler</a></div></td>
+                    <td><div class="normalButton"><a>filler</a></div></td>
+                </tr> -->
+            </table>
+            <a id="copyRight">Intelligent Learning &copy; 2019</a>
+        </div>
+    </footer>
+    
+ 	<br><br>
+     
+ </body>
+</html>
