@@ -75,7 +75,7 @@ app.get('/mainpage', (req, res) => {
 				user.coursesTaught.forEach((course) => coursesT.push({courseName: course}))
 				let coursesL = []
 				user.coursesLearning.forEach((course) => coursesL.push({courseName: course}))
-				res.render('profile_page.hbs', {
+				res.render('./mainpage/mainpage.hbs', {
 					profilePic: user.profilePic,
 					firstName: user.firstName,
 					lastName: user.lastName,
@@ -129,7 +129,7 @@ app.get('/profile_page', (req, res) => {
 						res.status(500).send();
 					}
 				);
-				res.render('profile_page.hbs', {
+				res.render('./profile_page/profile_page.hbs', {
 					profilePic: user.profilePic,
 					firstName: user.firstName,
 					lastName: user.lastName,

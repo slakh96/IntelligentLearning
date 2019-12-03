@@ -37,17 +37,17 @@
                     {{#each post}}
                     <div class="post">
                         <div class="username">
-                            <a href="./profile_page.html">[CSC369]Looking for tutoring in File Systems</a>
+                            <a href="./profile_page.html">{{title}}</a>
                         </div>
                         <div class="timePosted">
-                            <a>10:15 am</a>
-                            <p>Shahzil Lakhani</p>
+                            <a>{{time}}</a>
+                            <p>{{userName}}</p>
                             
                         </div>
                         <br>
                         <div class="postText">
-                            <a>Looking for someone to help me with file <br>
-                                systems in the next week. Email if interested.<br>
+                            <a>
+                                {{content}}
                             </a>
                         </div>
                     </div>
