@@ -4,7 +4,7 @@ function getLoggedInInfo(e){
     if (e){
         e.preventDefault();
     }
-    const x = document.getElementById('settingsContainer');
+    const x = document.getElementById('content');
     x.style.display = "block";
     let data; 
     log("Reached the getLoggedIn function");
@@ -20,15 +20,47 @@ function getLoggedInInfo(e){
                 dat.json().then((da) => {
                     log("Da is ", da);
                     const data = da[0];
+                    // log("THIS IS FIRST NAME")
+                    // log(data.firstName)
                     document.getElementById('profilePic').src = data.profilePic
                     const personalInfoDiv = document.getElementById('personalInfo')
                     addPersonalInfoToDOM(data, personalInfoDiv)
                     const contactInfoDiv = document.getElementById('contactInfo')
                     // addcontactInfoToDOM(data, contactInfoDiv)
                     const about = document.createElement('p')
-                    about.textContent = user.about
+                    about.textContent = data.about
                     document.getElementById('about').appendChild(about)
-                    
+                    const coursesDiv = document.getElementById('course')
+                    data.coursesTaught.forEach(course => {
+                        addCourseToDOM(course, coursesDiv)
+                    });
+                    const experienceDiv = document.getElementById('experience')
+                    data.experience.array.forEach(experience => {
+                        const title = document.createElement('h4')
+                        const description = document.createElement('p')
+                        title.textContent = experience.title
+                        description.textContent = experience.description
+                        experienceDiv.appendChild(title)
+                        experienceDiv.appendChild(description)
+                    });
+
+                    const reviewDiv = document.getElementById('review')
+                    fetch("/users/" + data.userName).then((dat) => {  
+                        // log("dat is ", dat);
+                        dat.json().then((da) => {
+                            log("Da is ", da);
+                            const data = da[0];
+                            // const container = document.createElement('div')
+                            // const code = document.createElement('h4')
+                            // const name = document.createElement('h5')
+                            // container.className = "course"
+                            // code.textContent = data.code
+                            // name.textContent = data.name
+                            // container.appendChild(code)
+                            // container.appendChild(name)
+                            // masterDiv.appendChild(container)
+                        })
+                    })
                 })
                 
             })
@@ -66,20 +98,35 @@ function getLoggedInInfo(e){
 
 function addPersonalInfoToDOM(user, masterDiv){
     const fullName = document.createElement('h2')
-    fullName.textContent = user.firstName + ' ' + user.fullName
+    fullName.textContent = user.firstName.concat(' ', user.lastName)
     const description = document.createElement('p')
     description.textContent = user.about
     masterDiv.appendChild(fullName)
     masterDiv.appendChild(description)
 }
 
-function addCourseToDOM(user, masterDiv){
-    const container = document.createElement('div')
-    const code = document.createElement('h4')
-    const name = document.createElement('h5')
-    container.className = "course"
-    code.
+function addCourseToDOM(code, masterDiv){
+    fetch("/users/" + code).then((dat) => {  
+        // log("dat is ", dat);
+        dat.json().then((da) => {
+            log("Da is ", da);
+            const data = da[0];
+            const container = document.createElement('div')
+            const code = document.createElement('h4')
+            const name = document.createElement('h5')
+            container.className = "course"
+            code.textContent = data.code
+            name.textContent = data.name
+            container.appendChild(code)
+            container.appendChild(name)
+            masterDiv.appendChild(container)
+        })
+    })
 }
+
+// function addExperienceToDOM(code, masterDiv){
+
+// }
 
 // $(window).load(function () {
 //     $("#reviewPopupTrigger").click(function(){
