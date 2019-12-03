@@ -10,13 +10,17 @@ function getAllPosts(e){
             // return a promise that resolves with the JSON body
             //log(response.json());
             log("Returning a positive result...")
-           return response.json(); 
+           response.json().then(
+               result => {
+                   log("this stuff ")
+                    updateDOM(result.posts);
+               }
+           ); 
        } else {
             alert('Could not get posts');
        }                
     }).then((json) => {
-        log("The query was successful");
-        log(json);
+        log("something here idk")
     }).catch((error) => {
         log("There was an error...");
         log(error);
@@ -38,27 +42,11 @@ function addPost(e) {
     let content = document.querySelector("#postCreatorInput").value; 
     let username = "";
     const cookieurl = '/users/check-session';
-    // Create our request constructor with all the parameters we need
-    const request = new Request(url, {
-        method: 'POST', 
-        body: JSON.stringify(data),
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-    });
-    // Send the request with fetch()
     fetch(cookieurl).then(
         response => {
-            log("response is ");
-            log(response);
             response.json().then(
                 resp => {
-                    log("resp is ")
-                    log(resp)
                     if (resp){
-                        log("haha ooga booga")
-                        log(resp)
                         username = resp.currentUser;
                         // The data we are going to send in our request
                         let data = {
@@ -69,18 +57,39 @@ function addPost(e) {
                         }
                         return data;
                     } else {
-                        log("ooga booga")
                         return Promise.reject(resp);
                     }
                 }
             ).then(
                 data => {
-                    log("USERNAME HAHA")
-                    log(username)
                     if (data.userName.length > 0){
-                        fetch(request).then(function(res) {
-                            log(res);
-                        })
+                        const request = new Request(url, {
+                            method: 'POST', 
+                            body: JSON.stringify(data),
+                            headers: {
+                                'Accept': 'application/json, text/plain, */*',
+                                'Content-Type': 'application/json'
+                            },
+                        });
+                        fetch(request).then(
+                            () => {
+                                const allPosts = "/posts"
+                                fetch(allPosts).then(
+                                    posts => {
+                                        //log("THE POSTS CURRENTLY IN THE THING ARE THE FOLLOWING")
+                                        posts.json().then(
+                                            result => {
+                                                clearText()
+                                                clearDOM()
+                                                log("type of result.posts")
+                                                log(typeof(result.posts))
+                                                updateDOM(result.posts)
+                                            }
+                                        )
+                                    }
+                                )
+                            }
+                        )
                     } else {
                         return Promise.reject(username);
                     }
@@ -98,6 +107,32 @@ function addPost(e) {
 }
 
 // Adding posts
+function clearText(){
+    document.querySelector("#postCreatorTitle").value = "";
+    document.querySelector("#postCreatorInput").value = "";
+}
+
+function clearDOM(){
+    document.querySelector("#postsContainer").innerHTML = ""
+    const postHTML = "<div class=\"post\"><div class=\"username\"><a href=\"./profile_page.html\">Welcome to Intelligent Learning!</a></div><div class=\"timePosted\"><a>10:09 am</a><p>Intelligent Learning</p></div><br><div class=\"postText\"><a>Want to see the options you have available? <br> Search people by subject taught in the search function. <br> Feel free to explore the posts on your homepage as well!</a></div></div>"
+    document.querySelector("#postsContainer").innerHTML = postHTML;
+}
+
+function updateDOM(posts){
+    log("POSTS ARE THE FOLLOWING LOLLLLLL")
+    log(posts); 
+    if (posts.length > 0){
+        document.querySelector("#postsContainer").innerHTML = ""
+        let height = 0;      
+        let currentPost = null;
+        for (let i = 0; i < posts.length; i++){
+            currentPost = posts[i];
+            height += 250;
+            document.querySelector("#postsContainer").innerHTML += "<div class=\"post\"><div class=\"username\"><a href=\"./profile_page.html\">"+(currentPost.title)+"</a></div><div class=\"timePosted\"><a>"+(currentPost.time)+"</a><p>"+(currentPost.userName)+"</p></div><br><div class=\"postText\"><a>"+(currentPost.content)+"</a></div></div>"
+        }
+        document.getElementById("#postsContainer").style.height = height+"px"
+    }
+}
 
 height = 1200;
 numPosts = 9;
