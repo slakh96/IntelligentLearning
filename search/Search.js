@@ -1,12 +1,9 @@
-/* E2 Library - JS */
-
 /*-----------------------------------------------------------*/
 /* This is the code for the search page 
 /*-----------------------------------------------------------*/
-//import { setLoggedInProp, getLoggedIn, getLoggedInProp, getAllUsers, setLoggedIn, User } from './User.js';
-// global variables 
+
 const log = console.log;
-///const user1 = new User();
+
 const user1 = {
     firstName: "Abhi",
     lastName: "Kapoor",
@@ -49,57 +46,8 @@ const user2 = {
     adminN: false,
     promotionsN: true
 }
-
-function getAllUsers(e){
-    e.preventDefault();
-    const data = user1;
-    log("in getUsers");
-    const url = '/users';
-
-    fetch(url).then((response) => { 
-        if (response.status === 200) {
-            // return a promise that resolves with the JSON body
-            //log(response.json());
-            log("Returning a positive result...")
-           return response.json(); 
-       } else {
-            alert('Could not get posts');
-       }                
-    }).then((json) => {
-        log("The query was successful");
-        log(json);
-    }).catch((error) => {
-        log("There was an error...");
-        log(error);
-    })
-}
-
-function getAllPosts(e){
-    e.preventDefault();
-    log("Reached the getAllPosts function");
-    const url = '/posts';
-    fetch(url).then((response) => { 
-        if (response.status === 200) {
-            // return a promise that resolves with the JSON body
-            //log(response.json());
-            log("Returning a positive result...")
-           return response.json(); 
-       } else {
-            alert('Could not get posts');
-       }                
-    }).then((json) => {
-        log("The query was successful");
-        log(json);
-    }).catch((error) => {
-        log("There was an error...");
-        log(error);
-    })
-}
-
-
 const searchButton = document.querySelector("#searchButton")
-//searchButton.addEventListener('click', displayAllResults)
-searchButton.addEventListener('click', getAllPosts)
+searchButton.addEventListener('click', displayAllResults)
 
 // This function displays all the results when the search button is clicked 
 function displayAllResults(e){
@@ -110,49 +58,105 @@ function displayAllResults(e){
     e.preventDefault() 
     
     // let's create some user objects (this is dummy data)
-    const arrayOfResults = [user1, user2]
+    // const arrayOfResults = [user1, user2]
+    const arrayOfResults = [] 
+    obtainSearchResults();
+}
+
+function obtainSearchResults(){
+    const searchTextField = document.querySelector("#searchTextHere")
+    const stringEntered = searchTextField.value   
     
-    // let's add a div holding an h4 with the main title text 
-    var mainTitleDivs = document.querySelectorAll(".mainTitle"); 
-    for(let i = 0;i<mainTitleDivs.length;i++){
-        const parent = mainTitleDivs[i].parentElement
-        parent.removeChild(mainTitleDivs[i])
+    // app.get("/users/:wildcard/:query", (req, res)  
+    let wildcard;
+    let query;
+    let url;
+    if (stringEntered.includes(":")){
+        wildcard = getWildcard(stringEntered)
+        query = getQuery(stringEntered) 
+        url = '/users/' + wildcard + "/" + query;
     }
-    
-    // let's first clear the previous search results 
-    var searchResultEntries = document.querySelectorAll(".searchResultEntry"); 
-    for(let i = 0;i<searchResultEntries.length;i++){
-        const parent = searchResultEntries[i].parentElement
-        parent.removeChild(searchResultEntries[i])
+    else {
+        wildcard = null;
+        query = null;
+        url = '/users/' + undefined + "/" + undefined;
     }
-
-
-    // The master div, will contain the other divs inside it
-    const masterDiv = document.createElement("div")
+    log("URL is: ", url);
+    fetch(url).then((response) => { 
+        if (response.status === 200) {
+            log("Returning a positive result...")
+            return response.json(); 
+       } else {
+            alert('Could not get posts');
+       }                
+    }).then((json) => {
+        log("The query was successful");
+        log(json);
+        return json;
+    }).then((searchResults) => {
+        log("Search results are ", searchResults);
+        const arrayOfResults = searchResults;
+        // for(let i = 0;i<searchResults.length;i++){
+        //     arrayOfResults.push(JSON.parse(searchResults[i]))
+        // } 
+        log("arrayOfResults are ", arrayOfResults);
+        // let's add a div holding an h4 with the main title text 
+        var mainTitleDivs = document.querySelectorAll(".mainTitle"); 
+        for(let i = 0;i<mainTitleDivs.length;i++){
+            const parent = mainTitleDivs[i].parentElement
+            parent.removeChild(mainTitleDivs[i])
+        }
+        
+        // let's first clear the previous search results 
+        var searchResultEntries = document.querySelectorAll(".searchResultEntry"); 
+        for(let i = 0;i<searchResultEntries.length;i++){
+            const parent = searchResultEntries[i].parentElement     
+            parent.removeChild(searchResultEntries[i])
+        }
     
-    const mainTitleDiv = document.createElement('div');
-    mainTitleDiv.className = "mainTitle"
-    mainTitleDiv.classList.add("imageOverlayFixer")
+        // The master div, will contain the other divs inside it
+        const masterDiv = document.createElement("div")
+        
+        const mainTitleDiv = document.createElement('div');
+        mainTitleDiv.className = "mainTitle"
+        mainTitleDiv.classList.add("imageOverlayFixer")
+        
+        const searchResultH4 = document.createElement('h4')
+        searchResultH4.textContent = "Search Results for: \'CSC309\'"
+        mainTitleDiv.appendChild(searchResultH4)
     
-    const searchResultH4 = document.createElement('h4')
-    searchResultH4.textContent = "Search Results for: \'CSC309\'"
-    mainTitleDiv.appendChild(searchResultH4)
+        masterDiv.appendChild(mainTitleDiv)
+        
+        //document.body.appendChild(mainTitleDiv)
+        
+        // let's call the addSearchResultToDOM() function and pass each user to it 
+        for(let i = 0;i<arrayOfResults.length;i++){
+            addSearchResultToDOM(arrayOfResults[i], masterDiv)
+        }
+    
+        const footer = document.querySelector("footer")
+        footer.classList.add("eraseMargin")
+        document.body.insertBefore(masterDiv, footer)
+    
+        //window.scrollTo(0, 10000)
+        
+    }).catch((error) => {
+        log("There was an error...");
+        log(error);
+    })
+}
 
-    masterDiv.appendChild(mainTitleDiv)
-    
-    //document.body.appendChild(mainTitleDiv)
-    
-    // let's call the addSearchResultToDOM() function and pass each user to it 
-    for(let i = 0;i<arrayOfResults.length;i++){
-        addSearchResultToDOM(arrayOfResults[i], masterDiv)
-    }
+function getWildcard(stringEntered){
+    // userName:AbhiKapoor55
+    var indexOfColon = stringEntered.indexOf(":"); 
+    var wildCard = stringEntered.slice(0, indexOfColon);
+    return wildCard; 
+}
 
-    const footer = document.querySelector("footer")
-    footer.classList.add("eraseMargin")
-    document.body.insertBefore(masterDiv, footer)
-
-    //window.scrollTo(0, 10000)
-    
+function getQuery(stringEntered){
+    var indexOfColon = stringEntered.indexOf(":"); 
+    var query = stringEntered.slice(indexOfColon + 1, stringEntered.length); 
+    return query;
 }
 
 // This function adds one search result to the DOM 
@@ -180,7 +184,7 @@ function addSearchResultToDOM(user, masterDiv){
     // let's now add the username <p> tag and the <span> tag 
     const usernameP = document.createElement('p')
     const usernameSpan = document.createElement('span')
-    usernameSpan.textContent = "Username: " + user.username; 
+    usernameSpan.textContent = "Username: " + user.userName; 
     usernameP.appendChild(usernameSpan)
     newDiv.appendChild(usernameP)
     
@@ -220,7 +224,3 @@ function addSearchResultToDOM(user, masterDiv){
     
       
 }
-
-
-
-

@@ -397,6 +397,9 @@ app.get("/users/teach/:course_learning", (req, res) => {
 app.get("/users/:wildcard/:query", (req, res) => {
 	const wildcard = req.params.wildcard; 
 	const query = req.params.query;
+	log("Reached the wildcard get function ");
+	log("Wildcard is ", wildcard);
+	log("Query is ", query);
 	let findQuery;
 	switch(wildcard){
 		case "userName":
@@ -426,7 +429,8 @@ app.get("/users/:wildcard/:query", (req, res) => {
 			break;
 		default:
 			log("Bad search query. Query by username, experience, firstname, or lastname.");
-			res.status(400).send();
+			findQuery = {};
+			//res.status(400).send();
 			break;
 	}
 	log("the find query generated was : ", findQuery)
@@ -434,8 +438,8 @@ app.get("/users/:wildcard/:query", (req, res) => {
 		if (!users){
 			res.status(404).send();
 		}
-		log("INSIDE WILDCARD FINCTION TE USERS IS :")
-		log(users)
+		//log("INSIDE WILDCARD FINCTION TE USERS IS :")
+		//log(users)
 		res.send(users)
 	})
 	
