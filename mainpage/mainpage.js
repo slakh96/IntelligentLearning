@@ -1,3 +1,5 @@
+import { PassThrough } from "stream";
+
 const log = console.log;
 log('Loaded front-end javascript.');
 
@@ -27,10 +29,41 @@ function getAllPosts(e){
     })
 }
 
-function getUserData(){
-    const url = "/users/check-session";
+function initialSetup(e){
+    const url = '/posts';
+    fetch(url).then((response) => { 
+        if (response.status === 200) {
+            // return a promise that resolves with the JSON body
+            //log(response.json());
+            log("Returning a positive result...")
+           response.json().then(
+               result => {
+                   log("this stuff ")
+                    updateDOM(result.posts);
+               }
+           ); 
+       } else {
+            alert('Could not get posts');
+       }                
+    }).then((json) => {
+        log("something here idk")
+    }).catch((error) => {
+        log("There was an error...");
+        log(error);
+    });
 
-
+    const cookieurl = '/users/check-session';
+    fetch(cookieurl).then(
+        response => {
+            response.json().then(
+                cookie => {
+                    if (cookie){
+                        PassThrough;
+                    }
+                }
+            )
+        }
+    )
 }
 
 function addPost(e) {
