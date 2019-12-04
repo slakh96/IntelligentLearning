@@ -5,15 +5,14 @@ function getLoggedInInfo(e){
     if (e){
         e.preventDefault();
     }
-    const x = document.getElementById('settingsContainer');
-    x.style.display = "block";
     let data; 
     log("Reached the getLoggedIn function");
     let url = '/users/check-session';
     //url = '/users/' + defaultId;
     fetch(url).then((response) => {
         if (response.status == 200){
-
+        const x = document.getElementById('settingsContainer');
+        x.style.display = "block";
         response.json().then((resp) => {
             const loggedInUser = resp.currentUser; 
             fetch("/users/userName/" + loggedInUser).then((dat) => {  
@@ -56,19 +55,21 @@ function getLoggedInInfo(e){
             //};
         }
         else{
+            
             return Promise.reject("No user is logged in");
         }
     }).catch((error) =>{
         log("There was an error, ", error);
-        data = {firstName: "Fredrick", lastName: "Andersen", email: "fandersen@yahoo.com",
-            highestEdu: "Undergraduate", userName: "freddyA", phoneNumber: "1234567890",
-            coursesTaught: ["CSC309"], coursesLearning: ["CSC302"], about: "U of T Student", 
-            experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 
-            profilePic: "jakemuzzin.jpg", newPostingsForAsTutorCourses: false, resumeLink: '/jamesReimer.pdf', 
-            availability: "Monday mornings; Wednesday evenings", newPostingsForAsTuteeCourses: true,
-            adminNotifications: true, specialOffersPromotions: false
-            };
-            return data;
+        signOut();
+        // data = {firstName: "Fredrick", lastName: "Andersen", email: "fandersen@yahoo.com",
+        //     highestEdu: "Undergraduate", userName: "freddyA", phoneNumber: "1234567890",
+        //     coursesTaught: ["CSC309"], coursesLearning: ["CSC302"], about: "U of T Student", 
+        //     experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 
+        //     profilePic: "jakemuzzin.jpg", newPostingsForAsTutorCourses: false, resumeLink: '/jamesReimer.pdf', 
+        //     availability: "Monday mornings; Wednesday evenings", newPostingsForAsTuteeCourses: true,
+        //     adminNotifications: true, specialOffersPromotions: false
+        //     };
+        //     return data;
     // }).finally((result) => {
     //         log("Result in finally is: ", result);
     })

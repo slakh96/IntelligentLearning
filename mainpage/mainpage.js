@@ -37,58 +37,80 @@ function getAllPosts(e){
     })
 }
 
-function initialSetup(e){
-    const url = '/posts';
-    fetch(url).then((response) => { 
-        if (response.status === 200) {
-            // return a promise that resolves with the JSON body
-            //log(response.json());
-            log("Returning a positive result...")
-           response.json().then(
-               result => {
-                   log("this stuff ")
-                    updateDOM(result.posts);
-               }
-           ); 
-       } else {
-            alert('Could not get posts');
-       }                
-    }).then((json) => {
-        log("something here idk")
+function signOut(){
+    const url = '/users/logout';
+    fetch(url).then((result) => {
+        console.log("Redirecting...");
+    window.location.replace("../index/index.html");
     }).catch((error) => {
-        log("There was an error...");
-        log(error);
-    });
+        console.log("There was an error when signing out: ", error);
+    })
+}
 
-    const cookieurl = '/users/check-session';
-    let username = "";
-    fetch(cookieurl).then(
-        response => {
-            response.json().then(
-                cookie => {
-                    if (cookie){
-                        username = cookie.currentUser
-                        document.querySelector("#profileName a").textContent = username;
-                        const miniurl = "/users/userName/" + username
-                        fetch(miniurl).then(
-                            users => {
-                                log ("users HEEERERESJ;FLKADJ;FLKASDJ;LFIASJHJF;")
-                                log(users);
-                                users.json().then(
-                                    stuff => {
-                                        log("STUFF LOGGIN")
-                                        log(stuff)
-                                        const currentUser = stuff[0]
-                                        document.querySelector("#courseslol").textContent = ""+currentUser.coursesTaught
-                                        document.querySelector("#subjslol").textContent = ""+currentUser.coursesLearning
+function initialSetup(e){
+    let url = '/users/check-session';
+    //url = '/users/' + defaultId;
+    fetch(url).then((response) => {
+        if (response.status == 200){
+            const x = document.getElementById('bodyContainer');
+            x.style.display = "inline-block";
+            let url = '/posts';
+            fetch(url).then((response) => { 
+                if (response.status === 200) {
+                    // return a promise that resolves with the JSON body
+                    //log(response.json());
+                    log("Returning a positive result...")
+                response.json().then(
+                    result => {
+                        log("this stuff ")
+                            updateDOM(result.posts);
+                    }
+                ); 
+            } else {
+                    alert('Could not get posts');
+            }                
+            }).then((json) => {
+                log("something here idk")
+            }).catch((error) => {
+                log("There was an error...");
+                log(error);
+            });
+
+            const cookieurl = '/users/check-session';
+            let username = "";
+            fetch(cookieurl).then(
+                response => {
+                    response.json().then(
+                        cookie => {
+                            if (cookie){
+                                username = cookie.currentUser
+                                document.querySelector("#profileName a").textContent = username;
+                                const miniurl = "/users/userName/" + username
+                                fetch(miniurl).then(
+                                    users => {
+                                        log ("users HEEERERESJ;FLKADJ;FLKASDJ;LFIASJHJF;")
+                                        log(users);
+                                        users.json().then(
+                                            stuff => {
+                                                log("STUFF LOGGIN")
+                                                log(stuff)
+                                                const currentUser = stuff[0]
+                                                document.querySelector("#courseslol").textContent = ""+currentUser.coursesTaught
+                                                document.querySelector("#subjslol").textContent = ""+currentUser.coursesLearning
+                                            }
+                                        )
                                     }
                                 )
                             }
-                        )
-                    }
+                        }
+                    )
                 }
             )
         }
+        else {
+            signOut();
+        }
+    }
     )
 }
 

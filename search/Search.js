@@ -221,6 +221,30 @@ function addSearchResultToDOM(user, masterDiv){
     masterDiv.appendChild(newDiv)
     //document.body.appendChild(newDiv)
     //document.body.insertBefore(newDiv, footer)
-    
-      
+}
+
+function signOut(){
+    const url = '/users/logout';
+    fetch(url).then((result) => {
+        console.log("Redirecting...");
+    window.location.replace("../index/index.html");
+    }).catch((error) => {
+        console.log("There was an error when signing out: ", error);
+    })
+}
+
+function initialize(){
+    let url = '/users/check-session';
+    //url = '/users/' + defaultId;
+    fetch(url).then((response) => {
+        if (response.status == 200){
+            //The user was logged in 
+            const x = document.getElementById('pageContent');
+            x.style.display = "block";
+        }
+        else {
+            
+            signOut();
+        }
+    });
 }

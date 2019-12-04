@@ -2,6 +2,7 @@
     margin:0px;
     padding:0px;
     font-family:'Avenir Next';
+    
 }
 a{
     color: inherit;
@@ -68,7 +69,7 @@ a{
     width: 100%;
     height: 2100px;
     background-color: #0B0C10;
-    display: inline-block;
+    display: none;
     padding-top: 100px;
 }
 

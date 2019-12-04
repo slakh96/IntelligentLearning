@@ -25,6 +25,7 @@ td, th {
     left: 0;
     position: absolute;
     float: left;
+    display: none;
 }
 
 body footer {
