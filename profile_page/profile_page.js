@@ -3,14 +3,18 @@ function getLoggedInInfo(e){
     if (e){
         e.preventDefault();
     }
+<<<<<<< HEAD
+=======
     const x = document.getElementById('content');
     x.style.display = "block";
+>>>>>>> 2e99a472786192119cf6212e621ced707941e4b6
     let data;
     let url = '/users/check-session';
     //url = '/users/' + defaultId;
     fetch(url).then((response) => {
         if (response.status == 200){
-
+            const x = document.getElementById('content');
+            x.style.display = "block";
         response.json().then((resp) => {
             const loggedInUser = resp.currentUser; 
             fetch("/users/userName/" + loggedInUser).then((dat) => {
@@ -107,6 +111,28 @@ function getLoggedInInfo(e){
         }
     }).catch((error) =>{
         log("There was an error, ", error);
+<<<<<<< HEAD
+        signOut();
+        // data = {//firstName: "Fredrick", lastName: "Andersen", email: "fandersen@yahoo.com",
+        //     // highestEdu: "Undergraduate", userName: "freddyA", phoneNumber: "1234567890",
+        //     // coursesTaught: ["CSC309"], coursesLearning: ["CSC302"], about: "U of T Student", 
+        //     // experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 
+        //     // profilePic: "jakemuzzin.jpg", newPostingsForAsTutorCourses: false, resumeLink: '/jamesReimer.pdf', 
+        //     // availability: "Monday mornings; Wednesday evenings", newPostingsForAsTuteeCourses: true,
+        //     // adminNotifications: true, specialOffersPromotions: false
+        //     };
+        //     return data;
+    })
+}
+
+function signOut(){
+    const url = '/users/logout';
+    fetch(url).then((result) => {
+        log("Redirecting...");
+        window.location.replace("../index/index.html");
+    }).catch((error) => {
+        log("There was an error when signing out: ", error);
+=======
         data = {//firstName: "Fredrick", lastName: "Andersen", email: "fandersen@yahoo.com",
             // highestEdu: "Undergraduate", userName: "freddyA", phoneNumber: "1234567890",
             // coursesTaught: ["CSC309"], coursesLearning: ["CSC302"], about: "U of T Student", 
@@ -116,6 +142,7 @@ function getLoggedInInfo(e){
             // adminNotifications: true, specialOffersPromotions: false
             };
             return data;
+>>>>>>> 2e99a472786192119cf6212e621ced707941e4b6
     })
 }
 
