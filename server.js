@@ -725,7 +725,8 @@ app.patch('/users/:id', (req, res) => {
 })
 
 // GET COURSE BY COURSE CODE
-app.get('/users/:code', (req, res) => {
+app.get('/courses/:code', (req, res) => {
+	log("REACHED 727")
 	const courseCode = req.params.code;
 	Course.findOne({code: courseCode}).then((course) => {
 		if (!course){
@@ -734,7 +735,7 @@ app.get('/users/:code', (req, res) => {
 		}
 		else {
 			// log("Course is: ", course);
-			res.status.send(course);
+			res.status(200).send(course);
 		}
 	}).catch((error) => {
 		log("There was an error when sending the course: ", error);
@@ -743,7 +744,7 @@ app.get('/users/:code', (req, res) => {
 })
 
 // GET reviews BY target
-app.get('/users/:target', (req, res) => {
+app.get('/reviews/:target', (req, res) => {
 	const targetName = req.params.target;
 	Review.find({target: targetName}).then((allReviews) => {
 		if (!allReviews){
@@ -751,7 +752,7 @@ app.get('/users/:target', (req, res) => {
 		}
 		else {
 			// log("Course is: ", course);
-			res.status.send(allReviews);
+			res.status(200).send(allReviews);
 		}
 	}).catch((error) => {
 		log("There was an error when sending the course: ", error);
