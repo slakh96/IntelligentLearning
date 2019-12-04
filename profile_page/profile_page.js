@@ -1,13 +1,11 @@
 const log = console.log;
-log('Loaded front-end javascript.');
 function getLoggedInInfo(e){
     if (e){
         e.preventDefault();
     }
     const x = document.getElementById('content');
     x.style.display = "block";
-    let data; 
-    log("Reached the getLoggedIn function");
+    let data;
     let url = '/users/check-session';
     //url = '/users/' + defaultId;
     fetch(url).then((response) => {
@@ -15,13 +13,9 @@ function getLoggedInInfo(e){
 
         response.json().then((resp) => {
             const loggedInUser = resp.currentUser; 
-            fetch("/users/userName/" + loggedInUser).then((dat) => {  
-                // log("dat is ", dat);
+            fetch("/users/userName/" + loggedInUser).then((dat) => {
                 dat.json().then((da) => {
-                    // log("Da is ", da);
                     const data = da[0];
-                    // log("THIS IS FIRST NAME")
-                    // log(data.firstName)
                     document.getElementById('profilePic').src = data.profilePic
                     const personalInfoDiv = document.getElementById('personalInfo')
                     addPersonalInfoToDOM(data, personalInfoDiv)
@@ -66,7 +60,6 @@ function getLoggedInInfo(e){
                     about.textContent = data.about
                     document.getElementById('about').appendChild(about)
                     const coursesDiv = document.getElementById('course');
-                    log("THIS IS COURSESTAUGHT", data.coursesTaught);
                     data.coursesTaught.forEach(course => {
                         addCourseToDOM(course, coursesDiv)
                     });
@@ -81,10 +74,8 @@ function getLoggedInInfo(e){
                     });
 
                     const reviewDiv = document.getElementById('review')
-                    fetch("/reviews/" + data.userName).then((dat) => {  
-                        log("dat is the dat", dat);
+                    fetch("/reviews/" + data.userName).then((dat) => {
                         dat.json().then((da) => {
-                            log("Da is the da", da);
                             da.forEach(review => {
                                 const author = document.createElement('h4')
                                 const content = document.createElement('p')
@@ -93,16 +84,6 @@ function getLoggedInInfo(e){
                                 reviewDiv.appendChild(author)
                                 reviewDiv.appendChild(content)
                             });
-                            // const data = da[0];
-                            // const container = document.createElement('div')
-                            // const code = document.createElement('h4')
-                            // const name = document.createElement('h5')
-                            // container.className = "course"
-                            // code.textContent = da.code
-                            // name.textContent = da.name
-                            // container.appendChild(code)
-                            // container.appendChild(name)
-                            // reviewDiv.appendChild(container)
                         })
                     })
                 })
@@ -135,8 +116,6 @@ function getLoggedInInfo(e){
             // adminNotifications: true, specialOffersPromotions: false
             };
             return data;
-    // }).finally((result) => {
-    //         log("Result in finally is: ", result);
     })
 }
 
@@ -150,10 +129,8 @@ function addPersonalInfoToDOM(user, masterDiv){
 }
 
 function addCourseToDOM(code, masterDiv){
-    fetch("/courses/" + code).then((dat) => {  
-        log("dat1 is ", dat);
+    fetch("/courses/" + code).then((dat) => {
         dat.json().then((da) => {
-            log("Da is ", da);
             const container = document.createElement('div')
             const code = document.createElement('h4')
             const name = document.createElement('h5')
@@ -168,10 +145,6 @@ function addCourseToDOM(code, masterDiv){
         })
     })
 }
-
-// function addExperienceToDOM(code, masterDiv){
-
-// }
 
 // $(window).load(function () {
 //     $("#reviewPopupTrigger").click(function(){
