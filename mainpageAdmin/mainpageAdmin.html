@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="mainpage.css">
+        <link rel="stylesheet" href="../mainpage/mainpage.css">
         <link rel="stylesheet" href="mainpageAdmin.css">
-        <link rel="stylesheet" type="text/css" href="header_footer.css">
+        <link rel="stylesheet" type="text/css" href="../header_footer.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <title>Intelligent Learning</title>
     </head>
@@ -15,10 +15,10 @@
                 <!--<div id="icon">I</div>-->
                 <ul>
                     <li><a id="icon" href="./mainpage.html">Intelligent Learning</a></li>
-                    <li><div><a href="./settings.html">Settings</a></div></li>
+                    <li><div><a href="../settings/settings.html">Settings</a></div></li>
                     <!---<li><div><a href="./accounts.html">About</a></div></li>--->
-                    <li><div><a href="helpIndex.html">Help</a></div></li>
-                    <li><div id="signupButton"><a href="SearchIndex.html">Search 🔍</a></div></li> <!--href="./signup.html"-->
+                    <li><div><a href="../help/helpIndex.html">Help</a></div></li>
+                    <li><div id="signupButton"><a href="../search/SearchIndex.html">Search 🔍</a></div></li> <!--href="./signup.html"-->
                     <li><div id="loginButton" onclick="signOut()"><a>Sign out</a></div></li>
                     <script>
                             function signOut(){
@@ -49,7 +49,7 @@
                 <div id="postsContainer">
                     <div class="post">
                         <div class="username">
-                            <a href="./profile_page.html">[CSC369]Looking for tutoring in File Systems</a>
+                            <a href="./profile_page/profile_page.html">[CSC369]Looking for tutoring in File Systems</a>
                         </div>
                         <div class="timePosted">
                             <a class="postOps userOps">Remove User</a>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="post">
                         <div class="username">
-                            <a href="./profile_page.html">[CSC343] Help with Subqueries</a>
+                            <a href="./profile_page/profile_page.html">[CSC343] Help with Subqueries</a>
                         </div>
                         <div class="timePosted">
                             <a class="postOps userOps">Remove User</a>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="post">
                         <div class="username">
-                            <a href="./profile_page.html">[CSC411] NEW tutor for CSC411</a>
+                            <a href="./profile_page/profile_page.html">[CSC411] NEW tutor for CSC411</a>
                         </div>
                         <div class="timePosted">
                                 <a class="postOps userOps">Remove User</a>
@@ -177,27 +177,23 @@
                 </div>
             </div>
             <div id="profileInfo">
-                <a href="./profile_page.html"><img src="../images/profilePic.png"></a>
+                <a href="../profile_page/profile_page.html"><img src="../images/profilePic.png"></a>
                 <div id="profileName">
-                    <a href="./profile_page.html">Jack Violence</a>
+                    <a href="../profile_page/profile_page.html">Jack Violence</a>
                 </div>
                 <div id="taughtSubjs">
                     <a>Subjects taught: <br></a>
-                    <a>CSC309, CSC369, CSC343</a>
+                    <a id="courseslol">CSC309, CSC369, CSC343</a>
                 </div>
                 <div id="learningSubjs">
                     <a>Subjects being learned <br></a>
-                    <a>CSC411, CSC412</a>
-                </div>
-                <div id="ratingTutor">
-                    <a>Ratings <br></a>
-                    <a>⭐⭐⭐⭐</a>
+                    <a id="subjslol">CSC411, CSC412</a>
                 </div>
             </div>
         </div>
         <footer>
             <div id="footerContainer">
-                <a id="icon" href="./mainpage.html">Intelligent Learning</a>
+                <a id="icon" href="../index/index.html">Intelligent Learning</a>
                 <table id="footerTable">
                         <tr>
                             <td><div class="normalButton"><a href="mainpageAdmin.html">Home</a></div></td>
@@ -205,8 +201,8 @@
                             <td><div class="normalButton" onclick="signOut()"><a>Sign Out</a></div></td>
                         </tr>
                         <tr>
-                            <td><div class="normalButton"><a href="SearchIndex.html">Search</a></div></td>
-                            <td><div class="normalButton"><a href="profile_page.html">Your Profile</a></div></td>
+                            <td><div class="normalButton"><a href="../search/SearchIndex.html">Search</a></div></td>
+                            <td><div class="normalButton"><a href="../profile_page/profile_page.html">Your Profile</a></div></td>
                         </tr>
                 </table>
                 <a id="copyRight">Intelligent Learning &copy; 2019</a>

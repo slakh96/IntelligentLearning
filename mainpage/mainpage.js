@@ -84,6 +84,10 @@ function initialSetup(e){
                         cookie => {
                             if (cookie){
                                 username = cookie.currentUser
+                                if (username == "admin"){
+                                    log("got here boyes")
+                                    window.location.replace("../mainpageAdmin/mainpageAdmin.html")
+                                }
                                 document.querySelector("#profileName a").textContent = username;
                                 const miniurl = "/users/userName/" + username
                                 fetch(miniurl).then(

@@ -56,6 +56,7 @@ app.use(
 app.get('/mainpage', (req, res) => {
 	if (req.session.user) {
 		const username = req.session.username
+		log("stuff got here brossss")
 		log(username);
 		User.find({userName:username}).then( (user) => {
 			if (!user) {

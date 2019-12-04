@@ -335,7 +335,7 @@ function updateDOM(posts){
         for (let i = 0; i < posts.length; i++){
             currentPost = posts[i];
             height += 250;
-            document.querySelector("#postsContainer").innerHTML += "<div class=\"post\"><div class=\"username\"><a href=\"./profile_page.html\">"+(currentPost.title)+"</a></div><div class=\"timePosted\"><a>"+(currentPost.time)+"</a><p>"+(currentPost.userName)+"</p></div><br><div class=\"postText\"><a>"+(currentPost.content)+"</a></div></div>"
+            document.querySelector("#postsContainer").innerHTML += "<div class=\"post\"><div class=\"username\"><a href=\"./profile_page.html\">"+(currentPost.title)+"</a></div><div class=\"timePosted\"><a class=\"postOps userOps\">Remove User</a><a>"+(currentPost.time)+"</a><p>"+(currentPost.userName)+"</p><a class=\"postOps postRemove\">X</a></div><br><div class=\"postText\"><a>"+(currentPost.content)+"</a></div></div>"
         }
         document.getElementById("bodyContainer").style.height = (100 + height)+"px"
     }
