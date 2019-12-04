@@ -357,8 +357,32 @@ function deletePost(e){
                 }
             )
         }
+    ).catch(
+        error => {
+            throw error
+        }
     )
 }
+
+function deleteUser(e){
+    const username = e.target.parentNode.nextSibling.nextSibling.textContent;
+    log("OOGA BOOGA")
+    log(username)
+    const delurl = "/users/" + username
+    const req = new Request(delurl, {
+        method: 'DELETE', 
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    });
+    fetch(req).catch(
+        error => {
+            if (error) throw error
+        }
+    )
+}
+
 
 function updateDOM(posts){
     log("POSTS ARE THE FOLLOWING LOLLLLLL")
@@ -377,6 +401,10 @@ function updateDOM(posts){
     const removal = document.getElementsByClassName("postRemove");
     for (let j = 0; j < removal.length; j++){
         removal[j].addEventListener('click', deletePost);
+    }
+    const userRem = document.getElementsByClassName("postOps")
+    for (let k = 0; k < userRem.length; k++){
+        userRem[k].addEventListener('click', deleteUser);
     }
 }
 
