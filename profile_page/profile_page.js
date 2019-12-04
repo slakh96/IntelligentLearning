@@ -16,9 +16,9 @@ function getLoggedInInfo(e){
         response.json().then((resp) => {
             const loggedInUser = resp.currentUser; 
             fetch("/users/userName/" + loggedInUser).then((dat) => {  
-                log("dat is ", dat);
+                // log("dat is ", dat);
                 dat.json().then((da) => {
-                    log("Da is ", da);
+                    // log("Da is ", da);
                     const data = da[0];
                     // log("THIS IS FIRST NAME")
                     // log(data.firstName)
@@ -30,12 +30,13 @@ function getLoggedInInfo(e){
                     const about = document.createElement('p')
                     about.textContent = data.about
                     document.getElementById('about').appendChild(about)
-                    const coursesDiv = document.getElementById('course')
+                    const coursesDiv = document.getElementById('course');
+                    log("THIS IS COURSESTAUGHT", data.coursesTaught);
                     data.coursesTaught.forEach(course => {
                         addCourseToDOM(course, coursesDiv)
                     });
                     const experienceDiv = document.getElementById('experience')
-                    data.experience.array.forEach(experience => {
+                    data.experience.forEach(experience => {
                         const title = document.createElement('h4')
                         const description = document.createElement('p')
                         title.textContent = experience.title
@@ -45,20 +46,28 @@ function getLoggedInInfo(e){
                     });
 
                     const reviewDiv = document.getElementById('review')
-                    fetch("/users/" + data.userName).then((dat) => {  
-                        // log("dat is ", dat);
+                    fetch("/reviews/" + data.userName).then((dat) => {  
+                        log("dat is the dat", dat);
                         dat.json().then((da) => {
-                            log("Da is ", da);
-                            const data = da[0];
+                            log("Da is the da", da);
+                            da.forEach(review => {
+                                const author = document.createElement('h4')
+                                const content = document.createElement('p')
+                                author.textContent = review.author
+                                content.textContent = review.content
+                                reviewDiv.appendChild(author)
+                                reviewDiv.appendChild(content)
+                            });
+                            // const data = da[0];
                             // const container = document.createElement('div')
                             // const code = document.createElement('h4')
                             // const name = document.createElement('h5')
                             // container.className = "course"
-                            // code.textContent = data.code
-                            // name.textContent = data.name
+                            // code.textContent = da.code
+                            // name.textContent = da.name
                             // container.appendChild(code)
                             // container.appendChild(name)
-                            // masterDiv.appendChild(container)
+                            // reviewDiv.appendChild(container)
                         })
                     })
                 })
@@ -106,20 +115,21 @@ function addPersonalInfoToDOM(user, masterDiv){
 }
 
 function addCourseToDOM(code, masterDiv){
-    fetch("/users/" + code).then((dat) => {  
-        // log("dat is ", dat);
+    fetch("/courses/" + code).then((dat) => {  
+        log("dat1 is ", dat);
         dat.json().then((da) => {
             log("Da is ", da);
-            const data = da[0];
             const container = document.createElement('div')
             const code = document.createElement('h4')
             const name = document.createElement('h5')
             container.className = "course"
-            code.textContent = data.code
-            name.textContent = data.name
+            code.textContent = da.code
+            name.textContent = da.name
             container.appendChild(code)
             container.appendChild(name)
             masterDiv.appendChild(container)
+        }).catch((error) =>{
+            log("There was an error, ", error);
         })
     })
 }
