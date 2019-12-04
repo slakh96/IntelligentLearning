@@ -18,7 +18,18 @@
                     <!---<li><div><a href="./accounts.html">About</a></div></li>--->
                     <li><div class="normalButton"><a href="../profile_page/profile_page.html">Your Profile</a></div></li>
                     <li><div id="signupButton"><a href="../search/SearchIndex.html">Search 🔍</a></div></li> <!--href="./signup.html"-->
-                    <li><div id="loginButton"><a href="index.html">Sign out</a></div></li>
+                    <li><div id="loginButton" onclick="signOut()"><a>Sign out</a></div></li>
+                    <script>
+                        function signOut(){
+                            const url = '/users/logout';
+                            fetch(url).then((result) => {
+                                console.log("Redirecting...");
+                            window.location.replace("../index/index.html");
+                            }).catch((error) => {
+                                console.log("There was an error when signing out: ", error);
+                            })
+                        }
+                    </script>
                 </ul>
             </div>
         </div>
