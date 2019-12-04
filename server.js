@@ -30,8 +30,8 @@ app.use("/", express.static(__dirname))
 
 // route for root
 app.get('/', (req, res) => {
-	console.log(__dirname );
-	res.sendFile(__dirname )
+	// console.log(__dirname );
+	res.sendFile(__dirname + '/index/index.html')
 })
 
 
