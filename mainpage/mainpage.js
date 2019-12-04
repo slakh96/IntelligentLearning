@@ -80,7 +80,7 @@ function initialSetup(e){
                                         log(stuff)
                                         const currentUser = stuff[0]
                                         document.querySelector("#courseslol").textContent = ""+currentUser.coursesTaught
-                                        document.querySelector("#subjslol").textContent = ""+currentUser.coursesTaught
+                                        document.querySelector("#subjslol").textContent = ""+currentUser.coursesLearning
                                     }
                                 )
                             }
