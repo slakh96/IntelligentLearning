@@ -42,17 +42,6 @@ function getLoggedInInfo(e){
                 
             })
         });
-        //fetch("/users/" + resultAsJson.)
-
-        //return response.json();
-        // data = {firstName: "Mitch", lastName: "Marner", email: "fandersen@yahoo.com",
-        //     highestEdu: "Undergraduate", userName: "freddyA", phoneNumber: "1234567890",
-        //     coursesTaught: ["CSC309"], coursesLearning: ["CSC302"], about: "U of T Student", 
-        //     experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 
-        //     profilePic: "jakemuzzin.jpg", newPostingsForAsTutorCourses: false, resumeLink: '/jamesReimer.pdf', 
-        //     availability: "Monday mornings; Wednesday evenings", newPostingsForAsTuteeCourses: true,
-        //     adminNotifications: true, specialOffersPromotions: false
-            //};
         }
         else{
             
@@ -61,17 +50,6 @@ function getLoggedInInfo(e){
     }).catch((error) =>{
         log("There was an error, ", error);
         signOut();
-        // data = {firstName: "Fredrick", lastName: "Andersen", email: "fandersen@yahoo.com",
-        //     highestEdu: "Undergraduate", userName: "freddyA", phoneNumber: "1234567890",
-        //     coursesTaught: ["CSC309"], coursesLearning: ["CSC302"], about: "U of T Student", 
-        //     experience: "Two years teaching at a math learning center", linkedInLink: "https://linkedin.com/jakemuzzin8", 
-        //     profilePic: "jakemuzzin.jpg", newPostingsForAsTutorCourses: false, resumeLink: '/jamesReimer.pdf', 
-        //     availability: "Monday mornings; Wednesday evenings", newPostingsForAsTuteeCourses: true,
-        //     adminNotifications: true, specialOffersPromotions: false
-        //     };
-        //     return data;
-    // }).finally((result) => {
-    //         log("Result in finally is: ", result);
     })
 
 
