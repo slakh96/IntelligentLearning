@@ -3,6 +3,16 @@ import { PassThrough } from "stream";
 const log = console.log;
 log('Loaded front-end javascript.');
 
+// function signOut(){
+//     const url = '/users/logout';
+//     fetch(url).then((result) => {
+//         log("Redirecting...");
+//        window.location.replace("../index/index.html");
+//     }).catch((error) => {
+//         log("There was an error when signing out: ", error);
+//     })
+// }
+
 function getAllPosts(e){
     //e.preventDefault();
     log("Reached the getAllPosts function");

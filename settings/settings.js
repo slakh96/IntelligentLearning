@@ -169,7 +169,7 @@ function saveLoggedInInfo(e){
      const url = '/users/logout';
      fetch(url).then((result) => {
          log("Redirecting...");
-        window.location.replace("../login/login.html");
+        window.location.replace("../index/index.html");
      }).catch((error) => {
          log("There was an error when signing out: ", error);
      })
