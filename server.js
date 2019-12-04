@@ -174,12 +174,14 @@ app.post("/users/login", (req, res) => {
 });
 
 app.get("/users/logout", (req, res) => {
-	log("INSIDE USERS LOGOUT THIS IS HIGHLY BAD")
+	log("INSIDE USERS LOGOUT THIS IS HIGHLY")
 	req.session.destroy(error => {
 		if (error) {
 			res.status(500).send(error);
 		} else {
-			res.send();
+			log("Cleared session cookie");
+			res.status(200).send();
+			//res.sendFile(__dirname + '/login/login.html');
 		}
 	});
 });

@@ -13,12 +13,23 @@
             <div id="buttonContainer">
                 <!--<div id="icon">I</div>-->
                 <ul>
-                    <li><a id="icon" href="./mainpage.html">Intelligent Learning</a></li>
-                    <li><div><a href="./settings.html">Settings</a></div></li>
+                    <li><a id="icon" href="../mainpage/mainpage.html">Intelligent Learning</a></li>
+                    <li><div><a href="../settings/settings.html">Settings</a></div></li>
                     <!---<li><div><a href="./accounts.html">About</a></div></li>--->
                     <li><div class="normalButton"><a href="../profile_page/profile_page.html">Your Profile</a></div></li>
                     <li><div id="signupButton"><a href="../search/SearchIndex.html">Search 🔍</a></div></li> <!--href="./signup.html"-->
-                    <li><div id="loginButton"><a href="index.html">Sign out</a></div></li>
+                    <li><div id="loginButton" onclick="signOut()"><a>Sign out</a></div></li>
+                    <script>
+                        function signOut(){
+                            const url = '/users/logout';
+                            fetch(url).then((result) => {
+                                console.log("Redirecting...");
+                            window.location.replace("../index/index.html");
+                            }).catch((error) => {
+                                console.log("There was an error when signing out: ", error);
+                            })
+                        }
+                    </script>
                 </ul>
             </div>
         </div>
@@ -162,15 +173,15 @@
                 </div>
                 <div id="taughtSubjs">
                     <a>Subjects taught: <br></a>
-                    <a>CSC309, CSC369, CSC343</a>
+                    <a id="courseslol">CSC309, CSC369, CSC343</a>
                 </div>
                 <div id="learningSubjs">
-                    <a>Subjects being learned <br></a>
-                    <a>CSC411, CSC412</a>
+                    <a>Subjects being learned: <br></a>
+                    <a id="subjslol">CSC411, CSC412</a>
                 </div>
                 <div id="ratingTutor">
                     <a>Ratings <br></a>
-                    <a>⭐⭐⭐⭐</a>
+                    <a>4 stars</a>
                 </div>
             </div>
         </div>
@@ -181,7 +192,7 @@
                         <tr>
                             <td><div class="normalButton"><a href="../mainpage/mainpage.html">Home</a></div></td>
                             <td><div class="normalButton"><a href="../whyus/whyus.html">About</a></div></td>
-                            <td><div class="normalButton"><a href="index.html">Sign Out</a></div></td>
+                            <td><div class="normalButton" onclick="signOut()"><a>Sign Out</a></div></td>
                         </tr>
                         <tr>
                             <td><div class="normalButton"><a href="../search/SearchIndex.html">Search</a></div></td>

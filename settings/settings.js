@@ -165,7 +165,15 @@ function saveLoggedInInfo(e){
     //     log("ERROR when receiving from savefn: ", err)
     // });
 };
-
+ function signOut(){
+     const url = '/users/logout';
+     fetch(url).then((result) => {
+         log("Redirecting...");
+        window.location.replace("../index/index.html");
+     }).catch((error) => {
+         log("There was an error when signing out: ", error);
+     })
+ }
 
 
 

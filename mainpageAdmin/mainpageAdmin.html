@@ -9,7 +9,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <title>Intelligent Learning</title>
     </head>
-    <body>
+    <body onload="initialSetup()">
         <div id="header">
             <div id="buttonContainer">
                 <!--<div id="icon">I</div>-->
@@ -19,7 +19,18 @@
                     <!---<li><div><a href="./accounts.html">About</a></div></li>--->
                     <li><div><a href="helpIndex.html">Help</a></div></li>
                     <li><div id="signupButton"><a href="SearchIndex.html">Search 🔍</a></div></li> <!--href="./signup.html"-->
-                    <li><div id="loginButton"><a href="index.html">Sign out</a></div></li>
+                    <li><div id="loginButton" onclick="signOut()"><a>Sign out</a></div></li>
+                    <script>
+                            function signOut(){
+                                const url = '/users/logout';
+                                fetch(url).then((result) => {
+                                    console.log("Redirecting...");
+                                window.location.replace("../index/index.html");
+                                }).catch((error) => {
+                                    console.log("There was an error when signing out: ", error);
+                                })
+                            }
+                        </script>
                 </ul>
             </div>
         </div>
@@ -166,7 +177,7 @@
                 </div>
             </div>
             <div id="profileInfo">
-                <a href="./profile_page.html"><img src="./images/profilePic.png"></a>
+                <a href="./profile_page.html"><img src="../images/profilePic.png"></a>
                 <div id="profileName">
                     <a href="./profile_page.html">Jack Violence</a>
                 </div>
@@ -191,7 +202,7 @@
                         <tr>
                             <td><div class="normalButton"><a href="mainpageAdmin.html">Home</a></div></td>
                             <!--<td><div class="normalButton"><a href="whyus.html">About</a></div></td>-->
-                            <td><div class="normalButton"><a href="index.html">Sign Out</a></div></td>
+                            <td><div class="normalButton" onclick="signOut()"><a>Sign Out</a></div></td>
                         </tr>
                         <tr>
                             <td><div class="normalButton"><a href="SearchIndex.html">Search</a></div></td>

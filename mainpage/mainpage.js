@@ -1,7 +1,15 @@
-import { PassThrough } from "stream";
-
 const log = console.log;
 log('Loaded front-end javascript.');
+
+// function signOut(){
+//     const url = '/users/logout';
+//     fetch(url).then((result) => {
+//         log("Redirecting...");
+//        window.location.replace("../index/index.html");
+//     }).catch((error) => {
+//         log("There was an error when signing out: ", error);
+//     })
+// }
 
 function getAllPosts(e){
     //e.preventDefault();
@@ -53,12 +61,30 @@ function initialSetup(e){
     });
 
     const cookieurl = '/users/check-session';
+    let username = "";
     fetch(cookieurl).then(
         response => {
             response.json().then(
                 cookie => {
                     if (cookie){
-                        PassThrough;
+                        username = cookie.currentUser
+                        document.querySelector("#profileName a").textContent = username;
+                        const miniurl = "/users/userName/" + username
+                        fetch(miniurl).then(
+                            users => {
+                                log ("users HEEERERESJ;FLKADJ;FLKASDJ;LFIASJHJF;")
+                                log(users);
+                                users.json().then(
+                                    stuff => {
+                                        log("STUFF LOGGIN")
+                                        log(stuff)
+                                        const currentUser = stuff[0]
+                                        document.querySelector("#courseslol").textContent = ""+currentUser.coursesTaught
+                                        document.querySelector("#subjslol").textContent = ""+currentUser.coursesLearning
+                                    }
+                                )
+                            }
+                        )
                     }
                 }
             )
