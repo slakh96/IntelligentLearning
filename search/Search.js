@@ -227,7 +227,7 @@ function signOut(){
     const url = '/users/logout';
     fetch(url).then((result) => {
         console.log("Redirecting...");
-    window.location.replace("../index/index.html");
+        window.location.replace("../index/index.html");
     }).catch((error) => {
         console.log("There was an error when signing out: ", error);
     })

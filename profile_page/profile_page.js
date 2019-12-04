@@ -25,7 +25,42 @@ function getLoggedInInfo(e){
                     document.getElementById('profilePic').src = data.profilePic
                     const personalInfoDiv = document.getElementById('personalInfo')
                     addPersonalInfoToDOM(data, personalInfoDiv)
-                    const contactInfoDiv = document.getElementById('contactInfo')
+
+                    const emailDiv = document.getElementById('email')
+                    const emailIcon = document.createElement('i')
+                    emailIcon.className = "fa fa-envelope"
+                    const email = document.createElement('a')
+                    email.href = "mailto:".concat(data.email)
+                    email.textContent = data.email
+                    emailDiv.appendChild(emailIcon)
+                    emailDiv.appendChild(email)
+
+                    const phoneDiv = document.getElementById('phone')
+                    const phoneIcon = document.createElement('i')
+                    phoneIcon.className = "fa fa-phone"
+                    const phone = document.createElement('a')
+                    phone.textContent = data.phoneNumber
+                    phoneDiv.appendChild(phoneIcon)
+                    phoneDiv.appendChild(phone)
+
+                    const linkedInDiv = document.getElementById('linkedin')
+                    const linkedInIcon = document.createElement('i')
+                    linkedInIcon.className = "fa fa-linkedin"
+                    const linkedIn = document.createElement('a')
+                    linkedIn.href = data.linkedInLink
+                    linkedIn.textContent = "LinkedIn"
+                    linkedInDiv.appendChild(linkedInIcon)
+                    linkedInDiv.appendChild(linkedIn)
+
+                    const resumeDiv = document.getElementById('resume')
+                    const resumeIcon = document.createElement('i')
+                    resumeIcon.className = "fa fa-file"
+                    const resume = document.createElement('a')
+                    resume.href = data.resumeLink
+                    resume.textContent = "Resume"
+                    resumeDiv.appendChild(resumeIcon)
+                    resumeDiv.appendChild(resume)
+
                     // addcontactInfoToDOM(data, contactInfoDiv)
                     const about = document.createElement('p')
                     about.textContent = data.about
