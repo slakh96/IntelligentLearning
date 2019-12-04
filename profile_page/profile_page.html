@@ -25,7 +25,18 @@
                 <li><div id="signupButton" class="normalButton"><a href="../SearchIndex.html">Search 🔍</a></div></li>
                 <li><div class="normalButton"><a href="../mainpage/mainpage.html">Home</a></div></li>
                 <li><div class="normalButton"><a href="../setings/settings.html">Settings</a></div></li>
-                <li><div class="specialButton"><a href="../index.html">Sign Out</a></div></li>
+                <li><div class="specialButton" onclick="signOut()"><a>Sign Out</a></div></li>
+                <script>
+                        function signOut(){
+                            const url = '/users/logout';
+                            fetch(url).then((result) => {
+                                console.log("Redirecting...");
+                            window.location.replace("../index/index.html");
+                            }).catch((error) => {
+                                console.log("There was an error when signing out: ", error);
+                            })
+                        }
+                    </script>
             </ul>
         </div>
     </header>
@@ -84,7 +95,7 @@
                     <td><div class="normalButton"><a href="../mainpage/mainpage.html">Home</a></div></td>
                     <!---<td><div class="normalButton"><a href="whyus.html">About</a></div></td>--->
                     <td><div class="normalButton"><a href="../profile_page/profile_page.html">Your Profile</a></div></td>
-                    <td><div class="normalButton"><a href="../index.html">Sign Out</a></div></td>
+                    <td><div class="normalButton" onclick="signOut()"><a>Sign Out</a></div></td>
                 </tr>
                 <tr>
                     <td><div class="normalButton"><a href="../search/SearchIndex.html">Search</a></div></td>
