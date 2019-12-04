@@ -325,6 +325,41 @@ function clearDOM(){
     document.querySelector("#postsContainer").innerHTML = postHTML;
 }
 
+function deletePost(e){
+    const stuff = e.target.parentNode.previousSibling.previousSibling.textContent;
+    const date =  new Date(stuff)
+    const delurl = "/posts/"+date
+    const req = new Request(delurl, {
+            method: 'DELETE', 
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+    fetch(req).then(
+        result => {
+            if (result){
+                log(result)
+            } else {
+                log("got here boyezzzzz")
+            }
+            const newurl = "/posts"
+            fetch(newurl).then(
+                posts => {
+                    if (posts){
+                        posts.json().then(
+                            posts => {
+                                updateDOM(posts.posts);
+                            }
+                        )
+                    }
+                }
+            )
+        }
+    )
+}
+
 function updateDOM(posts){
     log("POSTS ARE THE FOLLOWING LOLLLLLL")
     log(posts); 
@@ -338,6 +373,10 @@ function updateDOM(posts){
             document.querySelector("#postsContainer").innerHTML += "<div class=\"post\"><div class=\"username\"><a href=\"./profile_page.html\">"+(currentPost.title)+"</a></div><div class=\"timePosted\"><a class=\"postOps userOps\">Remove User</a><a>"+(currentPost.time)+"</a><p>"+(currentPost.userName)+"</p><a class=\"postOps postRemove\">X</a></div><br><div class=\"postText\"><a>"+(currentPost.content)+"</a></div></div>"
         }
         document.getElementById("bodyContainer").style.height = (100 + height)+"px"
+    }
+    const removal = document.getElementsByClassName("postRemove");
+    for (let j = 0; j < removal.length; j++){
+        removal[j].addEventListener('click', deletePost);
     }
 }
 

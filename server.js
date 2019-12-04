@@ -597,18 +597,12 @@ app.delete('/posts/:id', (req, res) => {
 	}
 
 	// Delete a post by its id
-	Post.findByIdAndRemove(id).then((post) => {
-		if (!post) {
-			log("There was no student found with that id...")
-			res.status(404).send();
-		} else {   
-			res.send(post);
-		}
-	}).catch((error) => {
+	Post.deleteOne({time: id}).catch(
+		(error) => {
 		log("There was an error when deleting a post: ", error);
 		res.status(500).send(); // server error, could not delete.
-	})
-})
+	});
+});
 
 ///Users
 
