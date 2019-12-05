@@ -2,7 +2,7 @@
 ======================================================================================
 				
 				   Welcome to Intelligent Learning 
-                    CSC309 Phase 1 - Team # 12 
+                    CSC309 Phase 2 - Team # 12 
    Shahzil Lakhani - Sultan Sidhu - Jun Wei Wong - Abhishek Kapoor 
 
 =======================================================================================

@@ -1,11 +1,13 @@
 {
-  "name": "tut08",
+  "name": "IntelligentLearning",
   "version": "1.0.0",
   "description": "",
-  "main": "tut08a.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node post_api.js"
+    "start": "node server.js",
+    "heroku-postbuild": "npm install && npm run build",
+    "server": "node server.js"
   },
   "author": "Abhi_Kapoor; Jun_Wei_Wong, Shahzil_Lakhani, Sultan_Sidhu",
   "license": "ISC",
@@ -18,5 +20,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.1.10",
     "mongoose": "^5.3.12"
-  }
+  },
+  "engines" : { "node" : ">=0.12" }
 }
